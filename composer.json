@@ -1,0 +1,31 @@
+{
+    "name": "coretrekstein/vippsomnipay",
+    "type": "library",
+    "description": "Vipps driver for the Omnipay payment processing library",
+    "keywords": [
+        "vipps"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "CoreTrek Stein",
+            "email": "stein@coretrek.no"
+        }
+    ],
+    "autoload": {
+        "psr-4": { "CoreTrekStein\\VippsOmnipay\\" : "src/" }
+    },
+    "require": {
+        "omnipay/common": "~3.0"
+    },
+    "require-dev": {
+        "omnipay/tests": "~3.0",
+        "squizlabs/php_codesniffer": "~3.0"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "3.0.x-dev"
+        }
+    },
+    "prefer-stable": true
+}
