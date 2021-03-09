@@ -16,7 +16,8 @@
         "psr-4": { "CoreTrekStein\\VippsOmnipay\\" : "src/" }
     },
     "require": {
-        "omnipay/common": "~3.0"
+        "omnipay/common": "~3.0",
+        "php-http/guzzle6-adapter": "^1.1"
     },
     "require-dev": {
         "omnipay/tests": "~3.0",
