@@ -32,6 +32,14 @@ use CoreTrekStein\VippsOmnipay;
 
 $gateway = new VippsOmnipay\Gateway();
 
+$gateway->initialize(array(
+    'baseUrl'              => '',
+    'clientId'             => '',
+    'clientSecret'         => '',
+    'ocpSubscription'      => '',
+    'merchantSerialNumber' => ''
+));
+
 $gateway->authorize());
 
 $card = new CreditCard(array(
