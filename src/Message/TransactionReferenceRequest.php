@@ -18,7 +18,8 @@ class TransactionReferenceRequest extends AbstractRequest
             'client_id'            => '',
             'client_secret'        => '',
             'merchantSerialNumber' => '',
-            'ocp_subscription'     => ''
+            'ocp_subscription'     => '',
+            'server_url'           => ''
         );
     }
 
@@ -27,9 +28,44 @@ class TransactionReferenceRequest extends AbstractRequest
         return $this->setParameter('merchantSerialNumber', $value);
     }
 
+    public function getMerchantSerialNumber()
+    {
+        return $this->getParameter('merchantSerialNumber');
+    }
+
+    public function getOcpSubscription()
+    {
+        return $this->getParameter('ocp_subscription');
+    }
+
+    public function getBaseUrl()
+    {
+        return $this->getParameter('base_url');
+    }
+
+    public function getServerUrl()
+    {
+        return $this->getParameter('server_url');
+    }
+
+    public function getClientId()
+    {
+        return $this->getParameter('client_id');
+    }
+
+    public function getClientSecret()
+    {
+        return $this->getParameter('client_secret');
+    }
+
     public function setBaseUrl($value)
     {
         return $this->setParameter('base_url', $value);
+    }
+
+    public function setServerUrl($value)
+    {
+        return $this->setParameter('server_url', $value);
     }
 
     public function setClientId($value)

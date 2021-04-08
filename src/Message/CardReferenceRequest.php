@@ -25,4 +25,9 @@ class CardReferenceRequest extends AbstractRequest
 
         return $this->response = new Response($this, $data);
     }
+
+    public function getBaseUrl()
+    {
+        return $this->getParameter('base_url');
+    }
 }

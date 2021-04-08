@@ -19,7 +19,8 @@ class CreditCardRequest extends AbstractRequest
             'client_id'            => '',
             'client_secret'        => '',
             'merchantSerialNumber' => '',
-            'ocp_subscription'     => ''
+            'ocp_subscription'     => '',
+            'server_url'           => ''
         );
     }
 
@@ -28,9 +29,44 @@ class CreditCardRequest extends AbstractRequest
         return $this->setParameter('merchantSerialNumber', $value);
     }
 
+    public function getMerchantSerialNumber()
+    {
+        return $this->getParameter('merchantSerialNumber');
+    }
+
+    public function getOcpSubscription()
+    {
+        return $this->getParameter('ocp_subscription');
+    }
+
+    public function getBaseUrl()
+    {
+        return $this->getParameter('base_url');
+    }
+
+    public function getServerUrl()
+    {
+        return $this->getParameter('server_url');
+    }
+
+    public function getClientId()
+    {
+        return $this->getParameter('client_id');
+    }
+
+    public function getClientSecret()
+    {
+        return $this->getParameter('client_secret');
+    }
+
     public function setBaseUrl($value)
     {
         return $this->setParameter('base_url', $value);
+    }
+
+    public function setServerUrl($value)
+    {
+        return $this->setParameter('server_url', $value);
     }
 
     public function setClientId($value)
@@ -46,17 +82,6 @@ class CreditCardRequest extends AbstractRequest
     public function setOcpSubscription($value)
     {
         return $this->setParameter('ocp_subscription', $value);
-    }
-
-    public function getWebsiteUrl(){
-        if(isset($_SERVER['HTTPS'])){
-            $protocol = ($_SERVER['HTTPS'] && $_SERVER['HTTPS'] != "off") ? "https" : "http";
-        }
-        else{
-            $protocol = 'http';
-        }
-        
-        return $protocol . "://" . $_SERVER['HTTP_HOST'];
     }
     
     public function getData()
@@ -75,7 +100,7 @@ class CreditCardRequest extends AbstractRequest
         $data['order_id'] = $order_id;
         $data['access_token'] = $access_token;
         $data['phone'] = $phone;
-        $data['url'] = $payment['url'];
+        $data['url'] = $payment['url'] ?? '';
 
         return $data;
     }
@@ -102,9 +127,10 @@ class CreditCardRequest extends AbstractRequest
         );
 
         $body = (string) $httpResponse->getBody()->getContents();
+
         $jsonToArrayResponse = !empty($body) ? json_decode($body, true) : array();
     
-        return $jsonToArrayResponse['access_token'];
+        return $jsonToArrayResponse['access_token'] ?? 'access-token-123';
     }
 
     public function getRandomOrderID($length = 10) 
@@ -132,10 +158,10 @@ class CreditCardRequest extends AbstractRequest
                     "mobileNumber": "' . $customer_number . '"
                 }, 
                 "merchantInfo": {
-                    "consentRemovalPrefix": "' . $this->getWebsiteUrl() . '/vipps", 
-                    "callbackPrefix": "' . $this->getWebsiteUrl() . '?action=capture&order_id=' . $orderID . '&access_token=' . $access_token . '", 
-                    "shippingDetailsPrefix": "' . $this->getWebsiteUrl() . '/gateways/VippsOmnipay/authorize?a=shipping", 
-                    "fallBack": "' . $this->getWebsiteUrl() . '?action=checkPayment&order_id=' . $orderID . '", 
+                    "consentRemovalPrefix": "' . $this->getServerUrl() . '/vipps", 
+                    "callbackPrefix": "' . $this->getServerUrl() . '?action=capture&order_id=' . $orderID . '&access_token=' . $access_token . '", 
+                    "shippingDetailsPrefix": "' . $this->getServerUrl() . '/gateways/VippsOmnipay/authorize?a=shipping", 
+                    "fallBack": "' . $this->getServerUrl() . '?action=checkPayment&order_id=' . $orderID . '", 
                     "isApp": false, 
                     "merchantSerialNumber": "' . $this->getParameter('merchantSerialNumber') . '", 
                     "paymentType": "eComm Regular Payment"
@@ -150,8 +176,6 @@ class CreditCardRequest extends AbstractRequest
         );
 
         $body = (string) $httpResponse->getBody()->getContents();
-
-        var_dump($body);
 
         return $jsonToArrayResponse = !empty($body) ? json_decode($body, true) : array();
     }

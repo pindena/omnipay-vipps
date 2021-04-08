@@ -20,13 +20,49 @@ class Gateway extends AbstractGateway
             'client_id'            => '',
             'client_secret'        => '=',
             'merchantSerialNumber' => '',
-            'ocp_subscription'     => ''
+            'ocp_subscription'     => '',
+            'server_url'           => '',
         );
     }
 
     public function setMerchantSerialNumber($value)
     {
         return $this->setParameter('merchantSerialNumber', $value);
+    }
+
+    public function getMerchantSerialNumber()
+    {
+        return $this->getParameter('merchantSerialNumber');
+    }
+
+    public function getOcpSubscription()
+    {
+        return $this->getParameter('ocp_subscription');
+    }
+
+    public function getBaseUrl()
+    {
+        return $this->getParameter('base_url');
+    }
+
+    public function getServerUrl()
+    {
+        return $this->getParameter('server_url');
+    }
+
+    public function getClientId()
+    {
+        return $this->getParameter('client_id');
+    }
+
+    public function getClientSecret()
+    {
+        return $this->getParameter('client_secret');
+    }
+
+    public function setServerUrl($value)
+    {
+        return $this->setParameter('server_url', $value);
     }
 
     public function setBaseUrl($value)
