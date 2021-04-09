@@ -60,14 +60,11 @@ class GatewayTest extends GatewayTestCase
 
     // testApprove
 
-    /*public function testCapture()
+    public function testCapture()
     {
-        $params = array(
-            'access_token'         => 'access-token-123',
-            'order_id'             => 'access-token-123',
-            'transactionReference' => '1234567890'
-        );
+        $request = $this->gateway->capture(array('amount' => '10.00'));
 
-        $request = $this->gateway->capture($params)->send();
-    }*/
+        $this->assertInstanceOf('CoreTrekStein\VippsOmnipay\Message\TransactionReferenceRequest', $request);
+        $this->assertSame('10.00', $request->getAmount());
+    }
 }

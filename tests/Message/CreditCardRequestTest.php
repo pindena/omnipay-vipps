@@ -10,6 +10,7 @@ class CreditCardRequestTest extends TestCase
     public function setUp()
     {
         $this->gateway = new Gateway($this->getHttpClient(), $this->getHttpRequest());
+        $this->request = new TransactionReferenceRequest($this->getHttpClient(), $this->getHttpRequest());
     }
 
     public function testGetData()
@@ -40,20 +41,9 @@ class CreditCardRequestTest extends TestCase
         $this->assertSame('Success', $response->getMessage());
     }
 
-    public function testCreditCardFailure()
+    /*public function testCapture()
     {
-        // card numbers ending in odd number should be declined
-        $options = array(
-            'amount' => 10,
-            'card' => $this->getValidCard(),
-        );
-        $options['card']['number'] = '12345678';
-        $response = $this->gateway->authorize($options)->send();
-
-        $this->assertInstanceOf('\CoreTrekStein\VippsOmnipay\Message\Response', $response);
-        $this->assertFalse($response->isSuccessful());
-        $this->assertFalse($response->isRedirect());
-        $this->assertNotEmpty($response->getTransactionReference());
-        $this->assertSame('Failure', $response->getMessage());
-    }
+        $this->setMockHttpResponse('CaptureSuccess.txt');
+        $response = $this->request->send();
+    }*/
 }
