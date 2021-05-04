@@ -1,5 +1,6 @@
 <?php
-namespace CoreTrekStein\VippsOmnipay\Message;
+
+namespace Pindena\Omnipay\Vipps\Message;
 
 use Omnipay\Common\Message\AbstractRequest;
 use Omnipay\Common\Message\ResponseInterface;

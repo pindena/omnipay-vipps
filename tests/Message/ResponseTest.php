@@ -1,8 +1,9 @@
 <?php
 
-namespace CoreTrekStein\VippsOmnipay\Message;
+namespace Pindena\Omnipay\Vipps\Tests\Message;
 
 use Omnipay\Tests\TestCase;
+use Pindena\Omnipay\Vipps\Message\Response;
 
 class ResponseTest extends TestCase
 {

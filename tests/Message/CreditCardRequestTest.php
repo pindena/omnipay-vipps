@@ -1,13 +1,15 @@
 <?php
 
-namespace CoreTrekStein\VippsOmnipay\Message;
+namespace Pindena\Omnipay\Vipps\Tests\Message;
 
-use CoreTrekStein\VippsOmnipay\Gateway;
-use Omnipay\Tests\TestCase;
+use Pindena\Omnipay\Vipps\Gateway;
+use Pindena\Omnipay\Vipps\Tests\GatewayTest;
+use Pindena\Omnipay\Vipps\Message\CreditCardRequest;
+use Pindena\Omnipay\Vipps\Message\TransactionReferenceRequest;
 
-class CreditCardRequestTest extends TestCase
+class CreditCardRequestTest extends GatewayTest
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->gateway = new Gateway($this->getHttpClient(), $this->getHttpRequest());
         $this->request = new TransactionReferenceRequest($this->getHttpClient(), $this->getHttpRequest());

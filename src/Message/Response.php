@@ -1,5 +1,6 @@
 <?php
-namespace CoreTrekStein\VippsOmnipay\Message;
+
+namespace Pindena\Omnipay\Vipps\Message;
 
 use Omnipay\Common\Message\AbstractResponse;
 
@@ -8,7 +9,7 @@ use Omnipay\Common\Message\AbstractResponse;
  *
  * This is the response class for all VippsOmnipay requests.
  *
- * @see \CoreTrekStein\VippsOmnipay\Gateway
+ * @see \Pindena\Omnipay\Vipps\Gateway
  */
 class Response extends AbstractResponse
 {

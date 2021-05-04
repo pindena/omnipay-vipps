@@ -1,18 +1,19 @@
 <?php
 
-namespace CoreTrekStein\VippsOmnipay;
+namespace Pindena\Omnipay\Vipps\Tests;
 
-use Omnipay\Tests\GatewayTestCase;
 use Omnipay\Common\CreditCard;
+use Omnipay\Tests\GatewayTestCase;
+use Pindena\Omnipay\Vipps\Gateway;
 
 class GatewayTest extends GatewayTestCase
 {
     /**
-     * @var \CoreTrekStein\VippsOmnipay\Gateway
+     * @var \Pindena\Omnipay\Vipps\Gateway
      */
     protected $gateway;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

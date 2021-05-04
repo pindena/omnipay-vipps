@@ -1,7 +1,11 @@
 <?php
-namespace CoreTrekStein\VippsOmnipay;
+
+namespace Pindena\Omnipay\Vipps;
 
 use Omnipay\Common\AbstractGateway;
+use Pindena\Omnipay\Vipps\Message\CreditCardRequest;
+use Pindena\Omnipay\Vipps\Message\CompletePurchaseRequest;
+use Pindena\Omnipay\Vipps\Message\TransactionReferenceRequest;
 
 /**
  * VippsOmnipay Gateway
@@ -87,51 +91,51 @@ class Gateway extends AbstractGateway
 
     public function authorize(array $parameters = array())
     {
-        return $this->createRequest('\CoreTrekStein\VippsOmnipay\Message\CreditCardRequest', $parameters);
+        return $this->createRequest(\Pindena\Omnipay\Vipps\Message\CreditCardRequest::class, $parameters);
     }
 
     public function purchase(array $parameters = array())
     {
-        return $this->createRequest('\CoreTrekStein\VippsOmnipay\Message\CreditCardRequest', $parameters);
+        return $this->createRequest(CreditCardRequest::class, $parameters);
     }
 
     public function completeAuthorize(array $parameters = array())
     {
-        return $this->createRequest('\CoreTrekStein\VippsOmnipay\Message\TransactionReferenceRequest', $parameters);
+        return $this->createRequest(TransactionReferenceRequest::class, $parameters);
     }
 
     public function capture(array $parameters = array())
     {
-        return $this->createRequest('\CoreTrekStein\VippsOmnipay\Message\TransactionReferenceRequest', $parameters);
+        return $this->createRequest(TransactionReferenceRequest::class, $parameters);
     }
 
     public function completePurchase(array $parameters = array())
     {
-        return $this->createRequest('\CoreTrekStein\VippsOmnipay\Message\CompletePurchaseRequest', $parameters);
+        return $this->createRequest(CompletePurchaseRequest::class, $parameters);
     }
 
     public function refund(array $parameters = array())
     {
-        return $this->createRequest('\CoreTrekStein\VippsOmnipay\Message\TransactionReferenceRequest', $parameters);
+        return $this->createRequest(TransactionReferenceRequest::class, $parameters);
     }
 
     public function void(array $parameters = array())
     {
-        return $this->createRequest('\CoreTrekStein\VippsOmnipay\Message\TransactionReferenceRequest', $parameters);
+        return $this->createRequest(TransactionReferenceRequest::class, $parameters);
     }
 
     public function createCard(array $parameters = array())
     {
-        return $this->createRequest('\CoreTrekStein\VippsOmnipay\Message\CreditCardRequest', $parameters);
+        return $this->createRequest(CreditCardRequest::class, $parameters);
     }
 
     public function updateCard(array $parameters = array())
     {
-        return $this->createRequest('\CoreTrekStein\VippsOmnipay\Message\CardReferenceRequest', $parameters);
+        return $this->createRequest(CreditCardRequest::class, $parameters);
     }
 
     public function deleteCard(array $parameters = array())
     {
-        return $this->createRequest('\CoreTrekStein\VippsOmnipay\Message\CardReferenceRequest', $parameters);
+        return $this->createRequest(CreditCardRequest::class, $parameters);
     }
 }
