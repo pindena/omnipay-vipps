@@ -91,7 +91,7 @@ class Gateway extends AbstractGateway
 
     public function authorize(array $parameters = array())
     {
-        return $this->createRequest(\Pindena\Omnipay\Vipps\Message\CreditCardRequest::class, $parameters);
+        return $this->createRequest(CreditCardRequest::class, $parameters);
     }
 
     public function purchase(array $parameters = array())
