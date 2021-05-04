@@ -1,12 +1,12 @@
 # Vipps - Omnipay
 
-[Packagist](https://packagist.org/packages/coretrekstein/vippsomnipay)
-[GitHub](https://github.com/coretrekstein/vippsomnipay)
+[Packagist](https://packagist.org/packages/pindena/omnipay-vipps)
+[GitHub](https://github.com/pindena/omnipay-vipps)
 
 ## Install
 
 ```
-composer require coretrekstein/vippsomnipay
+composer require pindena/omnipay-vipps
 ```
 
 ## Simple html form for mobile number and amount
