@@ -42,9 +42,9 @@ repository.
 ### Initialize gateway, authorize, purchase and redirect to Vipps
 
 ```php
-use CoreTrekStein\VippsOmnipay;
+use Pindena\Omnipay\Vipps\Gateway;
 
-$gateway = new VippsOmnipay\Gateway();
+$gateway = new Gateway();
 
 $gateway->initialize(array(
     'baseUrl'              => '',
@@ -54,9 +54,9 @@ $gateway->initialize(array(
     'merchantSerialNumber' => ''
 ));
 
-$gateway->authorize());
+$gateway->authorize();
 
-$card = new CreditCard(array(
+$card = new Omnipay\Common\CreditCard(array(
     'number' => $_GET['phone']
 ));
 
