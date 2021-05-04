@@ -34,13 +34,13 @@
         "omnipay/common": "dev-master"
     },
     "require-dev": {
-        "omnipay/tests": "dev-master",
+        "omnipay/tests": "dev-main",
         "squizlabs/php_codesniffer": "^3.0"
     },
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/NicTorgersen/omnipay-tests.git"
+            "url": "https://github.com/pindena/omnipay-tests.git"
         }
     ],
     "prefer-stable": true
