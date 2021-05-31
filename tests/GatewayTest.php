@@ -5,6 +5,8 @@ namespace Pindena\Omnipay\Vipps\Tests;
 use Omnipay\Common\CreditCard;
 use Omnipay\Tests\GatewayTestCase;
 use Pindena\Omnipay\Vipps\Gateway;
+use Pindena\Omnipay\Vipps\Message\CreditCardRequest;
+use Pindena\Omnipay\Vipps\Message\TransactionReferenceRequest;
 
 class GatewayTest extends GatewayTestCase
 {
@@ -46,7 +48,7 @@ class GatewayTest extends GatewayTestCase
         );
         $request= $this->gateway->authorize($options);
 
-        $this->assertInstanceOf('CoreTrekStein\VippsOmnipay\Message\CreditCardRequest', $request);
+        $this->assertInstanceOf(CreditCardRequest::class, $request);
         $this->assertArrayHasKey('amount', $request->getData());
     }
 
@@ -55,7 +57,7 @@ class GatewayTest extends GatewayTestCase
     public function testPurchase()
     {
         $request = $this->gateway->purchase(array('amount' => '10.00'));
-        $this->assertInstanceOf('CoreTrekStein\VippsOmnipay\Message\CreditCardRequest', $request);
+        $this->assertInstanceOf(CreditCardRequest::class, $request);
         $this->assertSame('10.00', $request->getAmount());
     }
 
@@ -65,7 +67,7 @@ class GatewayTest extends GatewayTestCase
     {
         $request = $this->gateway->capture(array('amount' => '10.00'));
 
-        $this->assertInstanceOf('CoreTrekStein\VippsOmnipay\Message\TransactionReferenceRequest', $request);
+        $this->assertInstanceOf(TransactionReferenceRequest::class, $request);
         $this->assertSame('10.00', $request->getAmount());
     }
 }

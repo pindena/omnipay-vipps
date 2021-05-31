@@ -59,6 +59,11 @@ class TransactionReferenceRequest extends AbstractRequest
         return $this->getParameter('client_secret');
     }
 
+    public function getTransactionText()
+    {
+        return $this->getParameter('transactionText');
+    }
+
     public function setBaseUrl($value)
     {
         return $this->setParameter('base_url', $value);
@@ -82,6 +87,11 @@ class TransactionReferenceRequest extends AbstractRequest
     public function setOcpSubscription($value)
     {
         return $this->setParameter('ocp_subscription', $value);
+    }
+
+    public function setTransactionText($value)
+    {
+        return $this->setParameter('transactionText', $value);
     }
 
     public function getOrderAmount($orderID, $token)

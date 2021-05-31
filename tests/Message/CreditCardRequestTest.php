@@ -3,6 +3,7 @@
 namespace Pindena\Omnipay\Vipps\Tests\Message;
 
 use Pindena\Omnipay\Vipps\Gateway;
+use Pindena\Omnipay\Vipps\Message\Response;
 use Pindena\Omnipay\Vipps\Tests\GatewayTest;
 use Pindena\Omnipay\Vipps\Message\CreditCardRequest;
 use Pindena\Omnipay\Vipps\Message\TransactionReferenceRequest;
@@ -38,7 +39,7 @@ class CreditCardRequestTest extends GatewayTest
         $options['card']['number'] = '91236172';
         $response = $this->gateway->authorize($options)->send();
 
-        $this->assertInstanceOf('\Pindena\Omnipay\Vipps\Message\Response', $response);
+        $this->assertInstanceOf(Response::class, $response);
         $this->assertTrue($response->isSuccessful());
         $this->assertFalse($response->isRedirect());
         $this->assertNotEmpty($response->getTransactionReference());
