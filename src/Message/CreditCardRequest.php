@@ -60,6 +60,11 @@ class CreditCardRequest extends AbstractRequest
         return $this->getParameter('client_secret');
     }
 
+    public function getTransactionText()
+    {
+        return $this->getParameter('transactionText');
+    }
+
     public function setBaseUrl($value)
     {
         return $this->setParameter('base_url', $value);
@@ -84,13 +89,18 @@ class CreditCardRequest extends AbstractRequest
     {
         return $this->setParameter('ocp_subscription', $value);
     }
+
+    public function setTransactionText($value)
+    {
+        return $this->setParameter('transactionText', $value);
+    }
     
     public function getData()
     {
         $access_token = $this->getAccessToken();
         $order_id = $this->getRandomOrderID();
 
-        $transactionText = 'Pindena transaksjonstekst';
+        $transactionText = $this->getTransactionText();
         $phone = $this->getCard()->getNumber();
         $amount = intval($this->getAmount());
 
@@ -102,6 +112,7 @@ class CreditCardRequest extends AbstractRequest
         $data['access_token'] = $access_token;
         $data['phone'] = $phone;
         $data['url'] = $payment['url'] ?? '';
+        $data['transactionText'] = $transactionText;
 
         return $data;
     }

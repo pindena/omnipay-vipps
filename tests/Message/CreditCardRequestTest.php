@@ -21,9 +21,11 @@ class CreditCardRequestTest extends GatewayTest
         $request->initialize(array(
             'amount' => 10,
             'card' => $this->getValidCard(),
+            'transactionText' => 'Dette er en transaksjon.',
         ));
         $data = $request->getData();
         $this->assertSame(10, $data['amount']);
+        $this->assertSame('Dette er en transaksjon.', $data['transactionText']);
     }
 
     public function testCreditCardSuccess()
@@ -36,7 +38,7 @@ class CreditCardRequestTest extends GatewayTest
         $options['card']['number'] = '91236172';
         $response = $this->gateway->authorize($options)->send();
 
-        $this->assertInstanceOf('\CoreTrekStein\VippsOmnipay\Message\Response', $response);
+        $this->assertInstanceOf('\Pindena\Omnipay\Vipps\Message\Response', $response);
         $this->assertTrue($response->isSuccessful());
         $this->assertFalse($response->isRedirect());
         $this->assertNotEmpty($response->getTransactionReference());
