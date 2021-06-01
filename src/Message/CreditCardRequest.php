@@ -17,6 +17,7 @@ class CreditCardRequest extends AbstractRequest
     {
         return array(
             'base_url'             => '',
+            'vippsEcommEndpoint'   => '/ecomm/v2/payments',
             'client_id'            => '',
             'client_secret'        => '',
             'merchantSerialNumber' => '',
@@ -65,6 +66,11 @@ class CreditCardRequest extends AbstractRequest
         return $this->getParameter('transactionText');
     }
 
+    public function getVippsEcommEndpoint()
+    {
+        return $this->getParameter('vippsEcommEndpoint');
+    }
+
     public function setBaseUrl($value)
     {
         return $this->setParameter('base_url', $value);
@@ -93,6 +99,11 @@ class CreditCardRequest extends AbstractRequest
     public function setTransactionText($value)
     {
         return $this->setParameter('transactionText', $value);
+    }
+
+    public function setVippsEcommEndpoint($value)
+    {
+        return $this->setParameter('vippsEcommEndpoint', $value);
     }
     
     public function getData()
@@ -160,7 +171,7 @@ class CreditCardRequest extends AbstractRequest
     public function createPayment($orderID, $access_token, $transaction_amount, $transaction_text, $customer_number) 
     {
         $httpResponse = $this->httpClient->request('POST',
-            $this->getParameter('base_url') . '/ecomm/v2/payments',
+            $this->getParameter('base_url') . $this->getVippsEcommEndpoint(),
             array(
                 'Content-Type' => 'application/json',
                 'Ocp-Apim-Subscription-Key' => $this->getParameter('ocp_subscription'),
