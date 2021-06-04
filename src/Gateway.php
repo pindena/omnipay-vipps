@@ -26,6 +26,7 @@ class Gateway extends AbstractGateway
             'merchantSerialNumber' => '',
             'ocp_subscription'     => '',
             'server_url'           => '',
+            'vippsEcommEndpoint'   => '/ecomm/v2/payments',
         );
     }
 
