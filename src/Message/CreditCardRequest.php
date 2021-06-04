@@ -4,6 +4,8 @@ namespace Pindena\Omnipay\Vipps\Message;
 
 use Omnipay\Common\Message\AbstractRequest;
 use Omnipay\Common\Message\ResponseInterface;
+use Omnipay\Common\Exception\RuntimeException;
+use Omnipay\Common\Exception\InvalidResponseException;
 
 /**
  * VippsOmnipay Authorize/Purchase Request
@@ -115,7 +117,7 @@ class CreditCardRequest extends AbstractRequest
 
         $transactionText = $this->getDescription(); // $this->getTransactionText();
         $phone = $this->getCard()->getNumber();
-        $amount = intval($this->getAmount());
+        $amount = intval($this->getAmount() * 100);
 
         $payment = $this->createPayment($order_id, $access_token, $amount, $transactionText, $phone);
 
@@ -200,6 +202,10 @@ class CreditCardRequest extends AbstractRequest
                 ],
             ])
         );
+
+        if ($httpResponse->getStatusCode() !== 200) {
+            throw new InvalidResponseException($httpResponse->getBody()->getContents());
+        }
 
         $body = (string) $httpResponse->getBody()->getContents();
 
