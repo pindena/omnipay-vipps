@@ -13,6 +13,8 @@ use Omnipay\Common\Message\ResponseInterface;
  */
 class CreditCardRequest extends AbstractRequest
 {
+    protected $zeroAmountAllowed = false;
+
     public function getDefaultParameters()
     {
         return array(
@@ -22,7 +24,7 @@ class CreditCardRequest extends AbstractRequest
             'client_secret'        => '',
             'merchantSerialNumber' => '',
             'ocp_subscription'     => '',
-            'server_url'           => ''
+            'server_url'           => '',
         );
     }
 
@@ -105,13 +107,13 @@ class CreditCardRequest extends AbstractRequest
     {
         return $this->setParameter('vippsEcommEndpoint', $value);
     }
-    
+
     public function getData()
     {
         $access_token = $this->getAccessToken();
-        $order_id = $this->getRandomOrderID();
+        $order_id = $this->getTransactionReference(); // $this->getRandomOrderID();
 
-        $transactionText = $this->getTransactionText();
+        $transactionText = $this->getDescription(); // $this->getTransactionText();
         $phone = $this->getCard()->getNumber();
         $amount = intval($this->getAmount());
 
@@ -129,7 +131,7 @@ class CreditCardRequest extends AbstractRequest
     }
 
     public function sendData($data)
-    {        
+    {
         $data['reference'] = uniqid();
         $data['success'] = 0 === substr($this->getCard()->getNumber(), -1, 1) % 2;
         $data['message'] = $data['success'] ? 'Success' : 'Failure';
@@ -137,7 +139,7 @@ class CreditCardRequest extends AbstractRequest
         return $this->response = new Response($this, $data);
     }
 
-    public function getAccessToken() 
+    public function getAccessToken()
     {
         $httpResponse = $this->httpClient->request('POST',
             $this->getParameter('base_url') . '/accesstoken/get',
@@ -153,11 +155,11 @@ class CreditCardRequest extends AbstractRequest
         $body = (string) $httpResponse->getBody()->getContents();
 
         $jsonToArrayResponse = !empty($body) ? json_decode($body, true) : array();
-    
+
         return $jsonToArrayResponse['access_token'] ?? 'access-token-123';
     }
 
-    public function getRandomOrderID($length = 10) 
+    public function getRandomOrderID($length = 10)
     {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
         $charactersLength = strlen($characters);
@@ -168,7 +170,7 @@ class CreditCardRequest extends AbstractRequest
         return $randomString;
     }
 
-    public function createPayment($orderID, $access_token, $transaction_amount, $transaction_text, $customer_number) 
+    public function createPayment($orderID, $access_token, $transaction_amount, $transaction_text, $customer_number)
     {
         $httpResponse = $this->httpClient->request('POST',
             $this->getParameter('base_url') . $this->getVippsEcommEndpoint(),
@@ -183,9 +185,9 @@ class CreditCardRequest extends AbstractRequest
                 ],
                 'merchantInfo' => [
                     'consentRemovalPrefix' => "{$this->getServerUrl()}/vipps",
-                    'callbackPrefix' => "{$this->getServerUrl()}/?action=capture&order_id={$orderID}&access_token={$access_token}",
+                    'callbackPrefix' => $this->getNotifyUrl(), // "{$this->getServerUrl()}/?action=capture&order_id={$orderID}&access_token={$access_token}",
                     'shippingDetailsPrefix' => "{$this->getServerUrl()}/gateways/VippsOmnipay/authorize?a=shipping",
-                    'fallBack' => "{$this->getServerUrl()}?action=checkPayment&order_id={$orderID}",
+                    'fallBack' => $this->getReturnUrl(), // "{$this->getServerUrl()}?action=checkPayment&order_id={$orderID}",
                     'isApp' => false,
                     'merchantSerialNumber' => $this->getParameter('merchantSerialNumber'),
                     'paymentType' => 'eComm Regular Payment',
@@ -194,7 +196,7 @@ class CreditCardRequest extends AbstractRequest
                     'amount' => $transaction_amount,
                     'orderId' => $orderID,
                     'timeStamp' => date('c'),
-                    'transactionText' => $transaction_text,
+                    'transactionText' => $this->getDescription(),
                 ],
             ])
         );

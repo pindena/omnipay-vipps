@@ -3,6 +3,8 @@
 namespace Pindena\Omnipay\Vipps\Message;
 
 use Omnipay\Common\Message\AbstractResponse;
+use Omnipay\Common\Message\RequestInterface;
+use Omnipay\Common\Message\RedirectResponseInterface;
 
 /**
  * VippsOmnipay Response
@@ -11,7 +13,7 @@ use Omnipay\Common\Message\AbstractResponse;
  *
  * @see \Pindena\Omnipay\Vipps\Gateway
  */
-class Response extends AbstractResponse
+class Response extends AbstractResponse implements RedirectResponseInterface
 {
     public function isSuccessful()
     {
@@ -36,5 +38,25 @@ class Response extends AbstractResponse
     public function getMessage()
     {
         return isset($this->data['message']) ? $this->data['message'] : null;
+    }
+
+    public function isRedirect()
+    {
+        return $this->getRedirectUrl();
+    }
+
+    public function getRedirectUrl()
+    {
+        return isset($this->data['url']) ? $this->data['url'] : null;
+    }
+
+    public function getRedirectMethod()
+    {
+        return 'GET';
+    }
+
+    public function getRedirectData()
+    {
+        return null;
     }
 }
