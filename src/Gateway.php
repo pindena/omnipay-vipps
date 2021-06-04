@@ -65,6 +65,11 @@ class Gateway extends AbstractGateway
         return $this->getParameter('client_secret');
     }
 
+    public function getVippsEcommEndpoint()
+    {
+        return $this->getParameter('vippsEcommEndpoint');
+    }
+
     public function setServerUrl($value)
     {
         return $this->setParameter('server_url', $value);
@@ -88,6 +93,11 @@ class Gateway extends AbstractGateway
     public function setOcpSubscription($value)
     {
         return $this->setParameter('ocp_subscription', $value);
+    }
+
+    public function setVippsEcommEndpoint($value)
+    {
+        return $this->setParameter('vippsEcommEndpoint', $value);
     }
 
     public function authorize(array $parameters = array())
