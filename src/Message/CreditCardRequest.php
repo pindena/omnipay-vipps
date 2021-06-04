@@ -177,26 +177,26 @@ class CreditCardRequest extends AbstractRequest
                 'Ocp-Apim-Subscription-Key' => $this->getParameter('ocp_subscription'),
                 'Authorization' => $access_token
             ),
-            '{
-                "customerInfo": {
-                    "mobileNumber": "' . $customer_number . '"
-                }, 
-                "merchantInfo": {
-                    "consentRemovalPrefix": "' . $this->getServerUrl() . '/vipps", 
-                    "callbackPrefix": "' . $this->getServerUrl() . '?action=capture&order_id=' . $orderID . '&access_token=' . $access_token . '", 
-                    "shippingDetailsPrefix": "' . $this->getServerUrl() . '/gateways/VippsOmnipay/authorize?a=shipping", 
-                    "fallBack": "' . $this->getServerUrl() . '?action=checkPayment&order_id=' . $orderID . '", 
-                    "isApp": false, 
-                    "merchantSerialNumber": "' . $this->getParameter('merchantSerialNumber') . '", 
-                    "paymentType": "eComm Regular Payment"
-                }, 
-                "transaction": {
-                    "amount": "' . $transaction_amount . '", 
-                    "orderId": "' . $orderID . '", 
-                    "timeStamp": "' . date('c') . '", 
-                    "transactionText": "' . $transaction_text . '"
-                }
-            }'
+            json_encode([
+                'customerInfo' => [
+                    'mobileNumber' => $customer_number,
+                ],
+                'merchantInfo' => [
+                    'consentRemovalPrefix' => "{$this->getServerUrl()}/vipps",
+                    'callbackPrefix' => "{$this->getServerUrl()}/?action=capture&order_id={$orderID}&access_token={$access_token}",
+                    'shippingDetailsPrefix' => "{$this->getServerUrl()}/gateways/VippsOmnipay/authorize?a=shipping",
+                    'fallBack' => "{$this->getServerUrl()}?action=checkPayment&order_id={$orderID}",
+                    'isApp' => false,
+                    'merchantSerialNumber' => $this->getParameter('merchantSerialNumber'),
+                    'paymentType' => 'eComm Regular Payment',
+                ],
+                'transaction' => [
+                    'amount' => $transaction_amount,
+                    'orderId' => $orderID,
+                    'timeStamp' => date('c'),
+                    'transactionText' => $transaction_text,
+                ],
+            ])
         );
 
         $body = (string) $httpResponse->getBody()->getContents();

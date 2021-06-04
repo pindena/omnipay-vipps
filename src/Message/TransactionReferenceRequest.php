@@ -129,15 +129,15 @@ class TransactionReferenceRequest extends AbstractRequest
                 'Authorization' => $token,
                 'X-Request-Id' => uniqid('', true)
             ),
-            '{
-                "merchantInfo": {
-                    "merchantSerialNumber": "' . $this->getParameter('merchantSerialNumber') . '"
-                }, 
-                "transaction": {
-                    "amount": "' . $amount . '",
-                    "transactionText": "' . $transactionText . '"
-                }
-            }'
+            json_encode([
+                'merchantInfo' => [
+                    'merchantSerialNumber' => $this->getParameter('merchantSerialNumber'),
+                ],
+                'transaction' => [
+                    'amount' => $amount,
+                    'transactionText' => $transactionText,
+                ]
+            ])
         );
 
         $body = (string) $httpResponse->getBody()->getContents();
