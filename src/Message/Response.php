@@ -42,12 +42,14 @@ class Response extends AbstractResponse implements RedirectResponseInterface
 
     public function isRedirect()
     {
-        return $this->getRedirectUrl();
+        return (bool) $this->getRedirectUrl();
     }
 
     public function getRedirectUrl()
     {
-        return isset($this->data['url']) ? $this->data['url'] : null;
+        return isset($this->data['url'])
+            ? $this->data['url']
+            : null;
     }
 
     public function getRedirectMethod()

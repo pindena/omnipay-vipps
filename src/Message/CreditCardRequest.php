@@ -144,12 +144,12 @@ class CreditCardRequest extends AbstractRequest
     public function getAccessToken()
     {
         $httpResponse = $this->httpClient->request('POST',
-            $this->getParameter('base_url') . '/accesstoken/get',
+            $this->getBaseUrl() . '/accesstoken/get',
             array(
                 'Accept' => 'application/json',
-                'client_id' => $this->getParameter('client_id'),
-                'client_secret' => $this->getParameter('client_secret'),
-                'Ocp-Apim-Subscription-Key' => $this->getParameter('ocp_subscription')
+                'client_id' => $this->getClientId(),
+                'client_secret' => $this->getClientSecret(),
+                'Ocp-Apim-Subscription-Key' => $this->getOcpSubscription()
             ),
             ''
         );
@@ -175,10 +175,10 @@ class CreditCardRequest extends AbstractRequest
     public function createPayment($orderID, $access_token, $transaction_amount, $transaction_text, $customer_number)
     {
         $httpResponse = $this->httpClient->request('POST',
-            $this->getParameter('base_url') . $this->getVippsEcommEndpoint(),
+            $this->getBaseUrl() . $this->getVippsEcommEndpoint(),
             array(
                 'Content-Type' => 'application/json',
-                'Ocp-Apim-Subscription-Key' => $this->getParameter('ocp_subscription'),
+                'Ocp-Apim-Subscription-Key' => $this->getOcpSubscription(),
                 'Authorization' => $access_token
             ),
             json_encode([
@@ -191,7 +191,7 @@ class CreditCardRequest extends AbstractRequest
                     'shippingDetailsPrefix' => "{$this->getServerUrl()}/gateways/VippsOmnipay/authorize?a=shipping",
                     'fallBack' => $this->getReturnUrl(), // "{$this->getServerUrl()}?action=checkPayment&order_id={$orderID}",
                     'isApp' => false,
-                    'merchantSerialNumber' => $this->getParameter('merchantSerialNumber'),
+                    'merchantSerialNumber' => $this->getMerchantSerialNumber(),
                     'paymentType' => 'eComm Regular Payment',
                 ],
                 'transaction' => [

@@ -22,10 +22,10 @@ class CreditCardRequestTest extends GatewayTest
         $request->initialize(array(
             'amount' => 10,
             'card' => $this->getValidCard(),
-            'transactionText' => 'Dette er en transaksjon.',
+            'description' => 'Dette er en transaksjon.',
         ));
         $data = $request->getData();
-        $this->assertSame(10, $data['amount']);
+        $this->assertSame(1000, $data['amount']);
         $this->assertSame('Dette er en transaksjon.', $data['transactionText']);
     }
 

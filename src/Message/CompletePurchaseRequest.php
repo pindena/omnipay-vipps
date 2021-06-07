@@ -86,12 +86,12 @@ class CompletePurchaseRequest extends AbstractRequest
 
     public function getData()
     {
-        $orderID = $_GET['order_id'];
+        $orderID = $this->getTransactionReference();
         $httpResponse = $this->httpClient->request('GET',
-            $this->getParameter('base_url') . '/ecomm/v2/payments/' . $orderID . '/details',
+            $this->getBaseUrl() . '/ecomm/v2/payments/' . $orderID . '/details',
             array(
                 'Content-Type' => 'application/json',
-                'Ocp-Apim-Subscription-Key' => $this->getParameter('ocp_subscription'),
+                'Ocp-Apim-Subscription-Key' => $this->getOcpSubscription(),
                 'Authorization' => $this->getAccessToken(),
                 'X-Request-Id' => uniqid('', true)
             ),
@@ -124,12 +124,12 @@ class CompletePurchaseRequest extends AbstractRequest
     public function getAccessToken() 
     {
         $httpResponse = $this->httpClient->request('POST',
-            $this->getParameter('base_url') . '/accesstoken/get',
+            $this->getBaseUrl() . '/accesstoken/get',
             array(
                 'Accept' => 'application/json',
-                'client_id' => $this->getParameter('client_id'),
-                'client_secret' => $this->getParameter('client_secret'),
-                'Ocp-Apim-Subscription-Key' => $this->getParameter('ocp_subscription')
+                'client_id' => $this->getClientId(),
+                'client_secret' => $this->getClientSecret(),
+                'Ocp-Apim-Subscription-Key' => $this->getOcpSubscription()
             ),
             ''
         );

@@ -97,10 +97,10 @@ class TransactionReferenceRequest extends AbstractRequest
     public function getOrderAmount($orderID, $token)
     {
         $httpResponse = $this->httpClient->request('GET',
-            $this->getParameter('base_url') . '/ecomm/v2/payments/' . $orderID . '/details',
+            $this->getBaseUrl() . '/ecomm/v2/payments/' . $orderID . '/details',
             array(
                 'Content-Type' => 'application/json',
-                'Ocp-Apim-Subscription-Key' => $this->getParameter('ocp_subscription'),
+                'Ocp-Apim-Subscription-Key' => $this->getOcpSubscription(),
                 'Authorization' => $token,
                 'X-Request-Id' => uniqid('', true)
             ),
@@ -122,16 +122,16 @@ class TransactionReferenceRequest extends AbstractRequest
         $amount = $this->getOrderAmount($orderID, $token);
 
         $httpResponse = $this->httpClient->request('POST',
-            $this->getParameter('base_url') . '/ecomm/v2/payments/' . $orderID . '/capture',
+            $this->getBaseUrl() . '/ecomm/v2/payments/' . $orderID . '/capture',
             array(
                 'Content-Type' => 'application/json',
-                'Ocp-Apim-Subscription-Key' => $this->getParameter('ocp_subscription'),
+                'Ocp-Apim-Subscription-Key' => $this->getOcpSubscription(),
                 'Authorization' => $token,
                 'X-Request-Id' => uniqid('', true)
             ),
             json_encode([
                 'merchantInfo' => [
-                    'merchantSerialNumber' => $this->getParameter('merchantSerialNumber'),
+                    'merchantSerialNumber' => $this->getMerchantSerialNumber(),
                 ],
                 'transaction' => [
                     'amount' => $amount,
