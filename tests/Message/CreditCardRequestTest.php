@@ -2,6 +2,7 @@
 
 namespace Pindena\Omnipay\Vipps\Tests\Message;
 
+use Http\Mock\Client;
 use Pindena\Omnipay\Vipps\Gateway;
 use Pindena\Omnipay\Vipps\Message\Response;
 use Pindena\Omnipay\Vipps\Tests\GatewayTest;
@@ -19,12 +20,15 @@ class CreditCardRequestTest extends GatewayTest
     public function testGetData()
     {
         $request = new CreditCardRequest($this->getHttpClient(), $this->getHttpRequest());
-        $request->initialize(array(
+
+        $request->initialize([
             'amount' => 10,
             'card' => $this->getValidCard(),
             'description' => 'Dette er en transaksjon.',
-        ));
+        ]);
+
         $data = $request->getData();
+
         $this->assertSame(1000, $data['amount']);
         $this->assertSame('Dette er en transaksjon.', $data['transactionText']);
     }
@@ -32,10 +36,10 @@ class CreditCardRequestTest extends GatewayTest
     public function testCreditCardSuccess()
     {
         // card numbers ending in even number should be successful
-        $options = array(
+        $options = [
             'amount' => 10,
             'card' => $this->getValidCard(),
-        );
+        ];
         $options['card']['number'] = '91236172';
         $response = $this->gateway->authorize($options)->send();
 

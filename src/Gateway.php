@@ -19,15 +19,14 @@ class Gateway extends AbstractGateway
 
     public function getDefaultParameters()
     {
-        return array(
-            'base_url'             => '',
-            'client_id'            => '',
-            'client_secret'        => '=',
+        return [
+            'client_id' => '',
+            'server_url' => '',
+            'testMode' => false,
+            'client_secret' => '',
+            'ocp_subscription' => '',
             'merchantSerialNumber' => '',
-            'ocp_subscription'     => '',
-            'server_url'           => '',
-            'vippsEcommEndpoint'   => '/ecomm/v2/payments',
-        );
+        ];
     }
 
     public function setMerchantSerialNumber($value)
@@ -40,34 +39,14 @@ class Gateway extends AbstractGateway
         return $this->getParameter('merchantSerialNumber');
     }
 
+    public function setOcpSubscription($value)
+    {
+        return $this->setParameter('ocp_subscription', $value);
+    }
+
     public function getOcpSubscription()
     {
         return $this->getParameter('ocp_subscription');
-    }
-
-    public function getBaseUrl()
-    {
-        return $this->getParameter('base_url');
-    }
-
-    public function getServerUrl()
-    {
-        return $this->getParameter('server_url');
-    }
-
-    public function getClientId()
-    {
-        return $this->getParameter('client_id');
-    }
-
-    public function getClientSecret()
-    {
-        return $this->getParameter('client_secret');
-    }
-
-    public function getVippsEcommEndpoint()
-    {
-        return $this->getParameter('vippsEcommEndpoint');
     }
 
     public function setServerUrl($value)
@@ -75,9 +54,9 @@ class Gateway extends AbstractGateway
         return $this->setParameter('server_url', $value);
     }
 
-    public function setBaseUrl($value)
+    public function getServerUrl()
     {
-        return $this->setParameter('base_url', $value);
+        return $this->getParameter('server_url');
     }
 
     public function setClientId($value)
@@ -85,19 +64,19 @@ class Gateway extends AbstractGateway
         return $this->setParameter('client_id', $value);
     }
 
+    public function getClientId()
+    {
+        return $this->getParameter('client_id');
+    }
+
     public function setClientSecret($value)
     {
         return $this->setParameter('client_secret', $value);
     }
 
-    public function setOcpSubscription($value)
+    public function getClientSecret()
     {
-        return $this->setParameter('ocp_subscription', $value);
-    }
-
-    public function setVippsEcommEndpoint($value)
-    {
-        return $this->setParameter('vippsEcommEndpoint', $value);
+        return $this->getParameter('client_secret');
     }
 
     public function authorize(array $parameters = array())

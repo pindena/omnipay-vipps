@@ -4,6 +4,7 @@ namespace Pindena\Omnipay\Vipps\Message;
 
 use Omnipay\Common\Message\AbstractResponse;
 use Omnipay\Common\Message\RequestInterface;
+use Omnipay\Common\Message\ResponseInterface;
 use Omnipay\Common\Message\RedirectResponseInterface;
 
 /**
