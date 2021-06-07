@@ -56,7 +56,7 @@ abstract class Request extends AbstractRequest
 
     public function getBaseUrl($path = null)
     {
-        $endpoint = $this->getTestMode() ? $this->testEndpoint : $this->liveEndpoint;
+        $endpoint = $this->getTestMode() ? $this->testBaseUrl : $this->liveBaseUrl;
 
         if (empty($path)) {
             return $endpoint;
@@ -185,7 +185,11 @@ abstract class Request extends AbstractRequest
                 'Ocp-Apim-Subscription-Key' => $this->getOcpSubscription(),
             ]);
 
-            $this->setToken($response['access_token']);
+            $accessToken = isset($response['access_token'])
+                ? $response['access_token']
+                : null;
+
+            $this->setToken($accessToken);
         }
 
         return $this->getToken();
