@@ -12,14 +12,12 @@ abstract class Request extends AbstractRequest
     /**
      * @var string
      */
-    public $testBaseUrl = 'https://apitest.vipps.no/';
+    public $liveBaseUrl = 'https://api.vipps.no';
 
     /**
      * @var string
      */
-    public $liveBaseUrl = 'https://api.vipps.no/';
-
-    public $version = 'v2';
+    public $testBaseUrl = 'https://apitest.vipps.no';
 
     public function getDefaultParameters()
     {
@@ -152,7 +150,10 @@ abstract class Request extends AbstractRequest
     {
         $headers = array_merge([
             'Content-Type' => 'application/json',
+            'Vipps-System-Plugin-Version' => '1.0',
+            'Vipps-System-Plugin-Name' => 'pindena/omnipay-vipps',
             'Ocp-Apim-Subscription-Key' => $this->getOcpSubscription(),
+            'Merchant-Serial-Number' => $this->getMerchantSerialNumber(),
         ], $headers);
 
         $uri = $this->getBaseUrl($uri);
@@ -178,7 +179,7 @@ abstract class Request extends AbstractRequest
     public function getAccessToken()
     {
         if (empty($this->getToken())) {
-            $response = $this->postRequest($this->getBaseUrl('/accesstoken/get'), [
+            $response = $this->postRequest("/accesstoken/get", [
                 'Accept' => 'application/json',
                 'client_id' => $this->getClientId(),
                 'client_secret' => $this->getClientSecret(),

@@ -49,7 +49,7 @@ class CreditCardRequest extends Request
 
     public function createPayment($orderId, $access_token, $transaction_amount, $customer_number)
     {
-        $response = $this->postRequest($this->getBaseUrl("/ecomm/v2/payments"), [
+        $response = $this->postRequest("/ecomm/v2/payments", [
             'Authorization' => $access_token,
         ], [
             'customerInfo' => [

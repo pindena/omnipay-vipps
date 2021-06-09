@@ -11,9 +11,14 @@ use Omnipay\Common\Message\ResponseInterface;
  */
 class CompletePurchaseRequest extends Request
 {
+    public $successfulOperations = [
+        'RESERVE',
+        'CAPTURE',
+    ];
+
     public function getData()
     {
-        $orderId = $this->getTransactionReference();
+        $orderId = $this->getTransactionId();
 
         $response = $this->getRequest("/ecomm/v2/payments/{$orderId}/details", [
             'Authorization' => $this->getAccessToken(),
@@ -23,7 +28,7 @@ class CompletePurchaseRequest extends Request
         $operation = $response['transactionLogHistory'][0]['operation'];
         $operationSuccess = $response['transactionLogHistory'][0]['operationSuccess'];
 
-        if ($operation == 'CAPTURE' && $operationSuccess) {
+        if (in_array($operation, $this->successfulOperations) && $operationSuccess) {
             $operationSuccess = true;
         } else {
             $operationSuccess = false;
@@ -34,7 +39,7 @@ class CompletePurchaseRequest extends Request
 
     public function sendData($data): ResponseInterface
     {        
-        $data['reference'] = $this->getTransactionReference();
+        $data['reference'] = $this->getTransactionId();
         $data['message'] = $data['success'] ? 'Success' : 'Failure';
 
         return $this->response = new Response($this, $data);
