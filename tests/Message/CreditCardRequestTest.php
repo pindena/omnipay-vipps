@@ -13,21 +13,20 @@ class CreditCardRequestTest extends GatewayTest
 {
     public function setUp(): void
     {
-        $this->gateway = new Gateway($this->getHttpClient(), $this->getHttpRequest());
-        $this->request = new TransactionReferenceRequest($this->getHttpClient(), $this->getHttpRequest());
+        parent::setUp();
+
+        $this->request = new CreditCardRequest($this->getHttpClient(), $this->getHttpRequest());
+        $this->request->initialize([
+            'amount' => '10.00',
+            'currency' => 'NOK',
+            'card' => $this->getValidCard(),
+            'description' => 'Dette er en transaksjon.',
+        ]);
     }
 
     public function testGetData()
     {
-        $request = new CreditCardRequest($this->getHttpClient(), $this->getHttpRequest());
-
-        $request->initialize([
-            'amount' => 10,
-            'card' => $this->getValidCard(),
-            'description' => 'Dette er en transaksjon.',
-        ]);
-
-        $data = $request->getData();
+        $data = $this->request->getData();
 
         $this->assertSame(1000, $data['amount']);
         $this->assertSame('Dette er en transaksjon.', $data['transactionText']);
@@ -35,13 +34,10 @@ class CreditCardRequestTest extends GatewayTest
 
     public function testCreditCardSuccess()
     {
-        // card numbers ending in even number should be successful
-        $options = [
+        $response = $this->gateway->authorize([
             'amount' => 10,
             'card' => $this->getValidCard(),
-        ];
-        $options['card']['number'] = '91236172';
-        $response = $this->gateway->authorize($options)->send();
+        ])->send();
 
         $this->assertInstanceOf(Response::class, $response);
         $this->assertTrue($response->isSuccessful());
@@ -49,10 +45,4 @@ class CreditCardRequestTest extends GatewayTest
         $this->assertNotEmpty($response->getTransactionReference());
         $this->assertSame('Success', $response->getMessage());
     }
-
-    /*public function testCapture()
-    {
-        $this->setMockHttpResponse('CaptureSuccess.txt');
-        $response = $this->request->send();
-    }*/
 }

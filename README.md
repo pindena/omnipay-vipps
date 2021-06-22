@@ -92,7 +92,8 @@ $response = $gateway->completePurchase()->send();
 
 ## Quirks
 
-Discoveries are still being made
+Vipps will send a `notify`-request to `[returnUrl]/v2/payments/[orderId]`.  
+For Laravel this means you will need to register a `POST` route in `web.php` which listens on `/v2/payments/{orderId}` for handling payment notifications from Vipps.
 
 ## Out Of Scope
 
