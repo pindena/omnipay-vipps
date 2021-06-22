@@ -47,7 +47,6 @@ use Pindena\Omnipay\Vipps\Gateway;
 $gateway = new Gateway();
 
 $gateway->initialize(array(
-    'baseUrl'              => '',
     'clientId'             => '',
     'clientSecret'         => '',
     'ocpSubscription'      => '',

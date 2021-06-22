@@ -20,11 +20,11 @@ class Gateway extends AbstractGateway
     public function getDefaultParameters()
     {
         return [
-            'client_id' => '',
-            'server_url' => '',
+            'clientId' => '',
+            'serverUrl' => '',
             'testMode' => false,
-            'client_secret' => '',
-            'ocp_subscription' => '',
+            'clientSecret' => '',
+            'ocpSubscription' => '',
             'merchantSerialNumber' => '',
         ];
     }
@@ -41,42 +41,42 @@ class Gateway extends AbstractGateway
 
     public function setOcpSubscription($value)
     {
-        return $this->setParameter('ocp_subscription', $value);
+        return $this->setParameter('ocpSubscription', $value);
     }
 
     public function getOcpSubscription()
     {
-        return $this->getParameter('ocp_subscription');
+        return $this->getParameter('ocpSubscription');
     }
 
     public function setServerUrl($value)
     {
-        return $this->setParameter('server_url', $value);
+        return $this->setParameter('serverUrl', $value);
     }
 
     public function getServerUrl()
     {
-        return $this->getParameter('server_url');
+        return $this->getParameter('serverUrl');
     }
 
     public function setClientId($value)
     {
-        return $this->setParameter('client_id', $value);
+        return $this->setParameter('clientId', $value);
     }
 
     public function getClientId()
     {
-        return $this->getParameter('client_id');
+        return $this->getParameter('clientId');
     }
 
     public function setClientSecret($value)
     {
-        return $this->setParameter('client_secret', $value);
+        return $this->setParameter('clientSecret', $value);
     }
 
     public function getClientSecret()
     {
-        return $this->getParameter('client_secret');
+        return $this->getParameter('clientSecret');
     }
 
     public function authorize(array $parameters = array())
