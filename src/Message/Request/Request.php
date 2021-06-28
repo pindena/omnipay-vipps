@@ -136,6 +136,20 @@ abstract class Request extends AbstractRequest
     }
 
     /**
+     * Convenience method to make a PUT request
+     *
+     * @param $uri
+     * @param array $headers
+     * @param null $body
+     * @return array|mixed
+     * @throws InvalidRequestException
+     */
+    public function putRequest($uri, $headers = [], $body = null)
+    {
+        return $this->makeVippsRequest('PUT', $uri, $headers, $body);
+    }
+
+    /**
      * Wrapping omnipay\common ClientInterface to make Vipps request with a default set of overridable headers
      *
      * @param $method
