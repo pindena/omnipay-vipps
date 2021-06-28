@@ -1,0 +1,8 @@
+[
+  {
+    "errorGroup": "Payments",
+    "errorCode": "44",
+    "errorMessage": "Refused by issuer because of expired card",
+    "contextId": "f70b8bf7-c843-4bea-95d9-94725b19895f"
+  }
+]

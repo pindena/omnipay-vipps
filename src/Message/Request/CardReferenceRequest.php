@@ -1,9 +1,9 @@
 <?php
 
-namespace Pindena\Omnipay\Vipps\Message;
+namespace Pindena\Omnipay\Vipps\Message\Request;
 
 use Omnipay\Common\Message\AbstractRequest;
-use Omnipay\Common\Message\ResponseInterface;
+use Pindena\Omnipay\Vipps\Message\Response\Response;
 
 /**
  * VippsOmnipay UpdateCard/DeleteCard Request
@@ -15,7 +15,8 @@ class CardReferenceRequest extends AbstractRequest
     public function getData()
     {
         $this->validate('cardReference');
-        return array('cardReference' => $this->getCardReference());
+
+        return ['cardReference' => $this->getCardReference()];
     }
 
     public function sendData($data)

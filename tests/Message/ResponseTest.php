@@ -2,34 +2,31 @@
 
 namespace Pindena\Omnipay\Vipps\Tests\Message;
 
-use Omnipay\Tests\TestCase;
-use Pindena\Omnipay\Vipps\Message\Response;
+use Pindena\Omnipay\Vipps\Tests\ResponseTestCase;
+use Pindena\Omnipay\Vipps\Message\Response\Response;
 
-class ResponseTest extends TestCase
+class ResponseTest extends ResponseTestCase
 {
-    public function testSuccess()
+    public function testCaptureResponse()
     {
         $response = new Response(
             $this->getMockRequest(),
-            array('reference' => 'abc123', 'success' => 1, 'message' => 'Success')
+            $this->getMockResponse('CaptureSuccess.txt', ['orderId' => 'abc123'])
         );
 
         $this->assertTrue($response->isSuccessful());
         $this->assertFalse($response->isRedirect());
         $this->assertSame('abc123', $response->getTransactionReference());
-        $this->assertSame('Success', $response->getMessage());
     }
 
     public function testFailure()
     {
         $response = new Response(
             $this->getMockRequest(),
-            array('reference' => 'abc123', 'success' => 0, 'message' => 'Failure')
+            $this->getMockResponse('FailureResponse.txt')
         );
 
         $this->assertFalse($response->isSuccessful());
         $this->assertFalse($response->isRedirect());
-        $this->assertSame('abc123', $response->getTransactionReference());
-        $this->assertSame('Failure', $response->getMessage());
     }
 }

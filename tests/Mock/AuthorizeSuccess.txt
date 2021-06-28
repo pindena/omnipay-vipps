@@ -1,0 +1,4 @@
+{
+  "orderId": "acme-shop-123-order123abc",
+  "url": "https://api.vipps.no/dwo-api-application/v1/deeplink/vippsgateway?v=2&token=eyJraWQiOiJqd3RrZXkiLC <snip>"
+}

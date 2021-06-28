@@ -2,12 +2,9 @@
 
 namespace Pindena\Omnipay\Vipps\Tests\Message;
 
-use Http\Mock\Client;
-use Pindena\Omnipay\Vipps\Gateway;
-use Pindena\Omnipay\Vipps\Message\Response;
 use Pindena\Omnipay\Vipps\Tests\GatewayTest;
-use Pindena\Omnipay\Vipps\Message\CreditCardRequest;
-use Pindena\Omnipay\Vipps\Message\TransactionReferenceRequest;
+use Pindena\Omnipay\Vipps\Message\Response\Response;
+use Pindena\Omnipay\Vipps\Message\Request\AuthorizeRequest;
 
 class CreditCardRequestTest extends GatewayTest
 {
@@ -15,7 +12,7 @@ class CreditCardRequestTest extends GatewayTest
     {
         parent::setUp();
 
-        $this->request = new CreditCardRequest($this->getHttpClient(), $this->getHttpRequest());
+        $this->request = new AuthorizeRequest($this->getHttpClient(), $this->getHttpRequest());
         $this->request->initialize([
             'amount' => '10.00',
             'currency' => 'NOK',

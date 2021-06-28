@@ -3,9 +3,10 @@
 namespace Pindena\Omnipay\Vipps;
 
 use Omnipay\Common\AbstractGateway;
-use Pindena\Omnipay\Vipps\Message\CreditCardRequest;
-use Pindena\Omnipay\Vipps\Message\CompletePurchaseRequest;
-use Pindena\Omnipay\Vipps\Message\TransactionReferenceRequest;
+use Pindena\Omnipay\Vipps\Message\Request\VoidRequest;
+use Pindena\Omnipay\Vipps\Message\Request\CaptureRequest;
+use Pindena\Omnipay\Vipps\Message\Request\AuthorizeRequest;
+use Pindena\Omnipay\Vipps\Message\Request\CompleteAuthorizeRequest;
 
 /**
  * VippsOmnipay Gateway
@@ -79,53 +80,53 @@ class Gateway extends AbstractGateway
         return $this->getParameter('clientSecret');
     }
 
-    public function authorize(array $parameters = array())
+    public function authorize(array $parameters = [])
     {
-        return $this->createRequest(CreditCardRequest::class, $parameters);
+        return $this->createRequest(AuthorizeRequest::class, $parameters);
     }
 
-    public function purchase(array $parameters = array())
+    public function purchase(array $parameters = [])
     {
-        return $this->createRequest(CreditCardRequest::class, $parameters);
+        return $this->createRequest(AuthorizeRequest::class, $parameters);
     }
 
-    public function completeAuthorize(array $parameters = array())
+    public function completeAuthorize(array $parameters = [])
     {
-        return $this->createRequest(TransactionReferenceRequest::class, $parameters);
+        return $this->createRequest(CompleteAuthorizeRequest::class, $parameters);
     }
 
-    public function capture(array $parameters = array())
+    public function capture(array $parameters = [])
     {
-        return $this->createRequest(TransactionReferenceRequest::class, $parameters);
+        return $this->createRequest(CaptureRequest::class, $parameters);
     }
 
-    public function completePurchase(array $parameters = array())
+    public function completePurchase(array $parameters = [])
     {
-        return $this->createRequest(CompletePurchaseRequest::class, $parameters);
+        return $this->createRequest(CaptureRequest::class, $parameters);
     }
 
-    public function refund(array $parameters = array())
+    public function refund(array $parameters = [])
     {
-        return $this->createRequest(TransactionReferenceRequest::class, $parameters);
+        return $this->createRequest(CaptureRequest::class, $parameters);
     }
 
-    public function void(array $parameters = array())
+    public function void(array $parameters = [])
     {
-        return $this->createRequest(TransactionReferenceRequest::class, $parameters);
+        return $this->createRequest(VoidRequest::class, $parameters);
     }
 
-    public function createCard(array $parameters = array())
+    public function createCard(array $parameters = [])
     {
-        return $this->createRequest(CreditCardRequest::class, $parameters);
+        return $this->createRequest(AuthorizeRequest::class, $parameters);
     }
 
-    public function updateCard(array $parameters = array())
+    public function updateCard(array $parameters = [])
     {
-        return $this->createRequest(CreditCardRequest::class, $parameters);
+        return $this->createRequest(AuthorizeRequest::class, $parameters);
     }
 
-    public function deleteCard(array $parameters = array())
+    public function deleteCard(array $parameters = [])
     {
-        return $this->createRequest(CreditCardRequest::class, $parameters);
+        return $this->createRequest(AuthorizeRequest::class, $parameters);
     }
 }

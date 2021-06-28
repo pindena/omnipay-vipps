@@ -1,6 +1,6 @@
 <?php
 
-namespace Pindena\Omnipay\Vipps\Message;
+namespace Pindena\Omnipay\Vipps\Message\Request;
 
 use Omnipay\Common\Message\AbstractRequest;
 use Omnipay\Common\Exception\InvalidRequestException;
@@ -112,7 +112,7 @@ abstract class Request extends AbstractRequest
      * @return array|mixed
      * @throws InvalidRequestException
      */
-    public function postRequest($uri, $headers, $body = null)
+    public function postRequest($uri, $headers = [], $body = null)
     {
         if (is_array($body)) {
             $body = json_encode($body);
@@ -130,7 +130,7 @@ abstract class Request extends AbstractRequest
      * @return array|mixed
      * @throws InvalidRequestException
      */
-    public function getRequest($uri, $headers, $body = null)
+    public function getRequest($uri, $headers = [], $body = null)
     {
         return $this->makeVippsRequest('GET', $uri, $headers, $body);
     }
@@ -158,10 +158,6 @@ abstract class Request extends AbstractRequest
         $uri = $this->getBaseUrl($uri);
 
         $response = $this->httpClient->request($method, $uri, $headers, $body);
-
-        if (! in_array($response->getStatusCode(), $this->successfulStatusCodes)) {
-            throw new InvalidRequestException($response->getBody()->getContents());
-        }
 
         $body = $response->getBody()->getContents();
 
