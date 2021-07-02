@@ -115,19 +115,4 @@ class Gateway extends AbstractGateway
     {
         return $this->createRequest(VoidRequest::class, $parameters);
     }
-
-    public function createCard(array $parameters = [])
-    {
-        return $this->createRequest(AuthorizeRequest::class, $parameters);
-    }
-
-    public function updateCard(array $parameters = [])
-    {
-        return $this->createRequest(AuthorizeRequest::class, $parameters);
-    }
-
-    public function deleteCard(array $parameters = [])
-    {
-        return $this->createRequest(AuthorizeRequest::class, $parameters);
-    }
 }
