@@ -4,7 +4,7 @@ namespace Pindena\Omnipay\Vipps\Tests;
 
 use \Omnipay\Tests\TestCase as BaseTestCase;
 
-class ResponseTestCase extends BaseTestCase
+class TestCase extends BaseTestCase
 {
     /**
      * Get a mock response from tests/Mock, populate with replacements if needed.

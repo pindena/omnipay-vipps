@@ -2,10 +2,10 @@
 
 namespace Pindena\Omnipay\Vipps\Tests\Message;
 
-use Pindena\Omnipay\Vipps\Tests\ResponseTestCase;
+use Pindena\Omnipay\Vipps\Tests\TestCase;
 use Pindena\Omnipay\Vipps\Message\Response\Response;
 
-class ResponseTest extends ResponseTestCase
+class ResponseTest extends TestCase
 {
     public function testCaptureResponse()
     {

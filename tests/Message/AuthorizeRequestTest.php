@@ -2,11 +2,10 @@
 
 namespace Pindena\Omnipay\Vipps\Tests\Message;
 
-use Pindena\Omnipay\Vipps\Tests\GatewayTest;
-use Pindena\Omnipay\Vipps\Message\Response\Response;
+use Pindena\Omnipay\Vipps\Tests\TestCase;
 use Pindena\Omnipay\Vipps\Message\Request\AuthorizeRequest;
 
-class CreditCardRequestTest extends GatewayTest
+class AuthorizeRequestTest extends TestCase
 {
     public function setUp(): void
     {
@@ -27,19 +26,5 @@ class CreditCardRequestTest extends GatewayTest
 
         $this->assertSame(1000, $data['amount']);
         $this->assertSame('Dette er en transaksjon.', $data['transactionText']);
-    }
-
-    public function testCreditCardSuccess()
-    {
-        $response = $this->gateway->authorize([
-            'amount' => 10,
-            'card' => $this->getValidCard(),
-        ])->send();
-
-        $this->assertInstanceOf(Response::class, $response);
-        $this->assertTrue($response->isSuccessful());
-        $this->assertFalse($response->isRedirect());
-        $this->assertNotEmpty($response->getTransactionReference());
-        $this->assertSame('Success', $response->getMessage());
     }
 }

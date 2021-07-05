@@ -2,22 +2,14 @@
 
 namespace Pindena\Omnipay\Vipps\Tests;
 
-use Omnipay\Common\CreditCard;
 use Omnipay\Tests\GatewayTestCase;
 use Pindena\Omnipay\Vipps\Gateway;
-use Omnipay\Common\Message\RequestInterface;
-use Pindena\Omnipay\Vipps\Message\Request\AuthorizeRequest;
 use Pindena\Omnipay\Vipps\Message\Request\CaptureRequest;
+use Pindena\Omnipay\Vipps\Message\Request\AuthorizeRequest;
+use Pindena\Omnipay\Vipps\Message\Response\AuthorizeResponse;
 
 class GatewayTest extends GatewayTestCase
 {
-    /**
-     * @var Gateway
-     */
-    protected $gateway;
-
-    protected RequestInterface $request;
-
     public function setUp(): void
     {
         parent::setUp();
@@ -25,40 +17,36 @@ class GatewayTest extends GatewayTestCase
         $this->gateway = new Gateway($this->getHttpClient(), $this->getHttpRequest());
     }
 
-    public function getValidCard()
+    public function getValidPhone()
     {
         return [
             'number' => '+4791236172',
         ];
     }
 
-    // testAuthorize
     public function testAuthorize()
     {
-        $options = array(
+        $options = [
             'amount' => '10.00',
-            'card' => new CreditCard(array(
-                'number' => '91236172',
-            ))
-        );
-        $request= $this->gateway->authorize($options);
+            'card' => $this->getValidPhone(),
+        ];
+        $request = $this->gateway->authorize($options);
 
         $this->assertInstanceOf(AuthorizeRequest::class, $request);
         $this->assertArrayHasKey('amount', $request->getData());
     }
 
-    // testPurchase
     public function testPurchase()
     {
-        $request = $this->gateway->purchase(array('amount' => '10.00'));
+        $request = $this->gateway->purchase(['amount' => '10.00']);
+
         $this->assertInstanceOf(AuthorizeRequest::class, $request);
         $this->assertSame('10.00', $request->getAmount());
     }
 
-    // testApprove
     public function testCapture()
     {
-        $request = $this->gateway->capture(array('amount' => '10.00'));
+        $request = $this->gateway->capture(['amount' => '10.00']);
 
         $this->assertInstanceOf(CaptureRequest::class, $request);
         $this->assertSame('10.00', $request->getAmount());

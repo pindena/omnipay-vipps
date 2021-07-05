@@ -2,14 +2,14 @@
 
 namespace Pindena\Omnipay\Vipps\Tests\Message;
 
-use Pindena\Omnipay\Vipps\Tests\ResponseTestCase;
-use Pindena\Omnipay\Vipps\Message\Response\Response;
+use Pindena\Omnipay\Vipps\Tests\TestCase;
+use Pindena\Omnipay\Vipps\Message\Response\AuthorizeResponse;
 
-class AuthorizeResponseTest extends ResponseTestCase
+class AuthorizeResponseTest extends TestCase
 {
     public function testAuthorizeSuccess()
     {
-        $response = new Response(
+        $response = new AuthorizeResponse(
             $this->getMockRequest(),
             $this->getMockResponse('AuthorizeSuccess.txt', ['orderId' => 'abc123'])
         );
