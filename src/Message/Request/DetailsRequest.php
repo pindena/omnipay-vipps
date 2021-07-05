@@ -6,24 +6,22 @@ use Omnipay\Common\Message\ResponseInterface;
 use Pindena\Omnipay\Vipps\Message\Response\Response;
 
 /**
- * VippsOmnipay Complete/Capture/Void/Refund Request
+ * Details request
  *
- * This is the request that will be called for any transaction which submits a transactionReference.
+ * This request fetches payment details from Vipps.
  */
-class CompleteAuthorizeRequest extends Request
+class DetailsRequest extends Request
 {
     public function getData()
     {
         $data = [];
-
-        $data['orderId'] = $this->getTransactionId();
 
         return $data;
     }
 
     public function sendData($data): ResponseInterface
     {
-        list('orderId' => $orderId) = $data;
+        $orderId = $this->getTransactionReference();
 
         $response = $this->getRequest("/ecomm/v2/payments/{$orderId}/details", [
             'Authorization' => $this->getAccessToken(),

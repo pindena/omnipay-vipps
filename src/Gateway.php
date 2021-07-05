@@ -3,11 +3,11 @@
 namespace Pindena\Omnipay\Vipps;
 
 use Omnipay\Common\AbstractGateway;
-use Pindena\Omnipay\Vipps\Message\Request\VoidRequest;
+use Pindena\Omnipay\Vipps\Message\Request\CancelRequest;
 use Pindena\Omnipay\Vipps\Message\Request\RefundRequest;
 use Pindena\Omnipay\Vipps\Message\Request\CaptureRequest;
+use Pindena\Omnipay\Vipps\Message\Request\DetailsRequest;
 use Pindena\Omnipay\Vipps\Message\Request\AuthorizeRequest;
-use Pindena\Omnipay\Vipps\Message\Request\CompleteAuthorizeRequest;
 
 /**
  * VippsOmnipay Gateway
@@ -93,7 +93,7 @@ class Gateway extends AbstractGateway
 
     public function completeAuthorize(array $parameters = [])
     {
-        return $this->createRequest(CompleteAuthorizeRequest::class, $parameters);
+        return $this->createRequest(DetailsRequest::class, $parameters);
     }
 
     public function capture(array $parameters = [])
@@ -113,6 +113,6 @@ class Gateway extends AbstractGateway
 
     public function void(array $parameters = [])
     {
-        return $this->createRequest(VoidRequest::class, $parameters);
+        return $this->createRequest(CancelRequest::class, $parameters);
     }
 }

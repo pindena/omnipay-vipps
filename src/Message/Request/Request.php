@@ -182,6 +182,7 @@ abstract class Request extends AbstractRequest
 
     /**
      * Get a Vipps access token
+     *
      * @return mixed
      * @throws InvalidRequestException
      */

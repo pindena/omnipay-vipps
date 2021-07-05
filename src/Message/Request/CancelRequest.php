@@ -2,22 +2,21 @@
 
 namespace Pindena\Omnipay\Vipps\Message\Request;
 
+use Omnipay\Common\Message\ResponseInterface;
 use Pindena\Omnipay\Vipps\Message\Response\Response;
 
-class VoidRequest extends Request
+class CancelRequest extends Request
 {
     public function getData()
     {
         $data = [];
 
-        $data['orderId'] = $this->getTransactionReference();
-
         return $data;
     }
 
-    public function sendData($data): \Omnipay\Common\Message\ResponseInterface
+    public function sendData($data): ResponseInterface
     {
-        list('orderId' => $orderId) = $data;
+        $orderId = $this->getTransactionReference();
 
         return $this->response = new Response($this, $this->putRequest("/ecomm/v2/payments/{$orderId}/cancel"));
     }

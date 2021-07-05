@@ -24,7 +24,7 @@ class AuthorizeRequestTest extends TestCase
     {
         $data = $this->request->getData();
 
-        $this->assertSame(1000, $data['amount']);
-        $this->assertSame('Dette er en transaksjon.', $data['transactionText']);
+        $this->assertSame(1000, $data['transaction']['amount']);
+        $this->assertSame('Dette er en transaksjon.', $data['transaction']['transactionText']);
     }
 }

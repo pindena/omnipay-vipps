@@ -33,7 +33,8 @@ class GatewayTest extends GatewayTestCase
         $request = $this->gateway->authorize($options);
 
         $this->assertInstanceOf(AuthorizeRequest::class, $request);
-        $this->assertArrayHasKey('amount', $request->getData());
+        $this->assertArrayHasKey('transaction', $request->getData());
+        $this->assertArrayHasKey('amount', $request->getData()['transaction']);
     }
 
     public function testPurchase()
