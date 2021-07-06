@@ -23,75 +23,53 @@ The following gateways are provided by this package:
 For general usage instructions, please see the main [Omnipay](https://github.com/thephpleague/omnipay)
 repository and the [Vipps documentation](https://vipps.no/developers-documentation/). 
 
-### Simple HTML form
-
-```html
-<form method="get">
-    <input type="hidden" name="action" value="purchase">
-
-    <label>Telefonnummer</label>
-    <input type="tel" name="phone" value="99999999"><br>
-
-    <label>Beløp (i ører)</label>
-    <input type="number" name="amount"><br>
-
-    <button>Betal med Vipps</button>
-</form>
-```
-
-### Initialize gateway, authorize, purchase and redirect to Vipps
+### Initialize gateway, authorize and redirect to Vipps
 
 ```php
 use Pindena\Omnipay\Vipps\Gateway;
 
 $gateway = new Gateway();
 
-$gateway->initialize(array(
+$gateway->initialize([
     'clientId'             => '',
     'clientSecret'         => '',
     'ocpSubscription'      => '',
     'merchantSerialNumber' => ''
-));
+]);
 
-$gateway->authorize();
+$response = $gateway->authorize([
+    'amount'      => '10.00',
+    'currency'    => 'NOK',
+    'description' => 'This is a test transaction',
+    'phone'       => $_POST['phone'],
+    'returnUrl'   => $fallbackUrl,
+    'notifyUrl'   => $callbackPrefix,
+])->send();
 
-$card = new Omnipay\Common\CreditCard(array(
-    'number' => $_GET['phone']
-));
-
-$transaction = $gateway->purchase(array(
-    'amount'   => $_GET['amount'],
-    'currency' => 'NOK',
-    'card'     => $card,
-));
-$response = $transaction->send();
-
-header("Location: " . $response->getData()['url']);
+if ($response->isRedirect()) {
+    $response->redirect();
+}
 ```
 
-### Vipps sends a post request to website
+### Capture the authorized amount
 
 ```php
-$params = array(
-    'access_token'         => $_GET['access_token'],
-    'order_id'             => $_GET['order_id'],
-    'transactionReference' => $_GET['order_id']
-);
-
-$response = $gateway->capture($params)->send();
-
-echo json_encode(array());
+$response = $gateway->capture([
+    'amount'               => $amount,
+    'description'          => 'This is a test transaction',
+    'transactionReference' => $transactionReference,
+])->send();
 ```
 
-### Validate the payment
+### Get the transaction details
 
 ```php
-$response = $gateway->completePurchase()->send();
+$response = $gateway->completeAuthorize(['transactionReference' => $transactionReference])->send();
 ```
 
 ## Quirks
 
-Vipps will send a `notify`-request to `[returnUrl]/v2/payments/[orderId]`.  
+Vipps will send a `notify`-request to `[notifyUrl]/v2/payments/[orderId]`.
 For Laravel this means you will need to register a `POST` route in `web.php` which listens on `/v2/payments/{orderId}` for handling payment notifications from Vipps.
 
 ## Out Of Scope
