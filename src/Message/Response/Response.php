@@ -8,9 +8,9 @@ use Omnipay\Common\Message\ResponseInterface;
 use Omnipay\Common\Message\RedirectResponseInterface;
 
 /**
- * VippsOmnipay Response
+ * Response
  *
- * This is the response class for all VippsOmnipay requests.
+ * This is the response class for most requests.
  *
  * @see \Pindena\Omnipay\Vipps\Gateway
  */
@@ -31,7 +31,8 @@ class Response extends AbstractResponse implements RedirectResponseInterface
             return false;
         }
 
-        return isset($this->data['success']) || (isset($this->data['transactionInfo']['status']) && $this->getStatusCode() < 400);
+        return isset($this->data['success'])
+            || (isset($this->data['transactionInfo']['status']) && $this->getStatusCode() < 400);
     }
 
     public function isCancelled()

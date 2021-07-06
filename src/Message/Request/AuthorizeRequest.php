@@ -16,7 +16,7 @@ class AuthorizeRequest extends Request
     {
         $data = [
             'customerInfo' => [
-                'mobileNumber' => $this->getCard()->getNumber(),
+                'mobileNumber' => $this->getPhone(),
             ],
             'merchantInfo' => [
                 'isApp' => false,
@@ -24,8 +24,6 @@ class AuthorizeRequest extends Request
                 'callbackPrefix' => $this->getNotifyUrl(),
                 'paymentType' => 'eComm Regular Payment',
                 'merchantSerialNumber' => $this->getMerchantSerialNumber(),
-                'consentRemovalPrefix' => "{$this->getServerUrl()}/vipps",
-                'shippingDetailsPrefix' => "{$this->getServerUrl()}/gateways/VippsOmnipay/authorize?a=shipping",
             ],
             'transaction' => [
                 'amount' => intval($this->getAmount() * 100),

@@ -23,4 +23,9 @@ class TestCase extends BaseTestCase
 
         return array_merge(json_decode(file_get_contents($path), true), $replacements);;
     }
+
+    public function getValidPhone()
+    {
+        return '+4799999999';
+    }
 }

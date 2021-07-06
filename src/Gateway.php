@@ -23,42 +23,11 @@ class Gateway extends AbstractGateway
     {
         return [
             'clientId' => '',
-            'serverUrl' => '',
-            'testMode' => false,
             'clientSecret' => '',
             'ocpSubscription' => '',
             'merchantSerialNumber' => '',
+            'testMode' => false,
         ];
-    }
-
-    public function setMerchantSerialNumber($value)
-    {
-        return $this->setParameter('merchantSerialNumber', $value);
-    }
-
-    public function getMerchantSerialNumber()
-    {
-        return $this->getParameter('merchantSerialNumber');
-    }
-
-    public function setOcpSubscription($value)
-    {
-        return $this->setParameter('ocpSubscription', $value);
-    }
-
-    public function getOcpSubscription()
-    {
-        return $this->getParameter('ocpSubscription');
-    }
-
-    public function setServerUrl($value)
-    {
-        return $this->setParameter('serverUrl', $value);
-    }
-
-    public function getServerUrl()
-    {
-        return $this->getParameter('serverUrl');
     }
 
     public function setClientId($value)
@@ -79,6 +48,26 @@ class Gateway extends AbstractGateway
     public function getClientSecret()
     {
         return $this->getParameter('clientSecret');
+    }
+
+    public function setOcpSubscription($value)
+    {
+        return $this->setParameter('ocpSubscription', $value);
+    }
+
+    public function getOcpSubscription()
+    {
+        return $this->getParameter('ocpSubscription');
+    }
+
+    public function setMerchantSerialNumber($value)
+    {
+        return $this->setParameter('merchantSerialNumber', $value);
+    }
+
+    public function getMerchantSerialNumber()
+    {
+        return $this->getParameter('merchantSerialNumber');
     }
 
     public function authorize(array $parameters = [])

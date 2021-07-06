@@ -19,16 +19,14 @@ class GatewayTest extends GatewayTestCase
 
     public function getValidPhone()
     {
-        return [
-            'number' => '+4791236172',
-        ];
+        return '+4799999999';
     }
 
     public function testAuthorize()
     {
         $options = [
             'amount' => '10.00',
-            'card' => $this->getValidPhone(),
+            'phone' => $this->getValidPhone(),
         ];
         $request = $this->gateway->authorize($options);
 

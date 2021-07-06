@@ -30,7 +30,7 @@ repository and the [Vipps documentation](https://vipps.no/developers-documentati
     <input type="hidden" name="action" value="purchase">
 
     <label>Telefonnummer</label>
-    <input type="tel" name="phone" value="91236172"><br>
+    <input type="tel" name="phone" value="99999999"><br>
 
     <label>Beløp (i ører)</label>
     <input type="number" name="amount"><br>

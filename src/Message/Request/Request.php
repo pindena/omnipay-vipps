@@ -3,6 +3,7 @@
 namespace Pindena\Omnipay\Vipps\Message\Request;
 
 use Omnipay\Common\Message\AbstractRequest;
+use Omnipay\Common\Message\ResponseInterface;
 use Omnipay\Common\Exception\InvalidRequestException;
 
 abstract class Request extends AbstractRequest
@@ -22,33 +23,12 @@ abstract class Request extends AbstractRequest
     public function getDefaultParameters()
     {
         return [
-            'accessToken'          => '',
-            'clientId'            => '',
-            'clientSecret'        => '',
+            'clientId' => '',
+            'clientSecret' => '',
+            'ocpSubscription' => '',
             'merchantSerialNumber' => '',
-            'ocpSubscription'     => '',
-            'serverUrl'           => '',
+            'accessToken' => '',
         ];
-    }
-
-    public function setMerchantSerialNumber($value)
-    {
-        return $this->setParameter('merchantSerialNumber', $value);
-    }
-
-    public function getMerchantSerialNumber()
-    {
-        return $this->getParameter('merchantSerialNumber');
-    }
-
-    public function setOcpSubscription($value)
-    {
-        return $this->setParameter('ocpSubscription', $value);
-    }
-
-    public function getOcpSubscription()
-    {
-        return $this->getParameter('ocpSubscription');
     }
 
     public function getBaseUrl($path = null)
@@ -60,16 +40,6 @@ abstract class Request extends AbstractRequest
         }
 
         return $endpoint . $path;
-    }
-
-    public function setServerUrl($value)
-    {
-        return $this->setParameter('serverUrl', $value);
-    }
-
-    public function getServerUrl()
-    {
-        return $this->getParameter('serverUrl');
     }
 
     public function setClientId($value)
@@ -90,6 +60,36 @@ abstract class Request extends AbstractRequest
     public function getClientSecret()
     {
         return $this->getParameter('clientSecret');
+    }
+
+    public function setOcpSubscription($value)
+    {
+        return $this->setParameter('ocpSubscription', $value);
+    }
+
+    public function getOcpSubscription()
+    {
+        return $this->getParameter('ocpSubscription');
+    }
+
+    public function setMerchantSerialNumber($value)
+    {
+        return $this->setParameter('merchantSerialNumber', $value);
+    }
+
+    public function getMerchantSerialNumber()
+    {
+        return $this->getParameter('merchantSerialNumber');
+    }
+
+    public function setPhone($value)
+    {
+        return $this->setParameter('phone', $value);
+    }
+
+    public function getPhone()
+    {
+        return $this->getParameter('phone');
     }
 
     public function setTransactionText($value)
@@ -208,5 +208,5 @@ abstract class Request extends AbstractRequest
 
     abstract public function getData();
 
-    abstract public function sendData($data): \Omnipay\Common\Message\ResponseInterface;
+    abstract public function sendData($data): ResponseInterface;
 }

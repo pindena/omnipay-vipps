@@ -15,7 +15,7 @@ class AuthorizeRequestTest extends TestCase
         $this->request->initialize([
             'amount' => '10.00',
             'currency' => 'NOK',
-            'card' => $this->getValidCard(),
+            'phone' => $this->getValidPhone(),
             'description' => 'Dette er en transaksjon.',
         ]);
     }
