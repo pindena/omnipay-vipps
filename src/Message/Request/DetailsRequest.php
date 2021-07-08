@@ -14,9 +14,7 @@ class DetailsRequest extends Request
 {
     public function getData()
     {
-        $data = [];
-
-        return $data;
+        return [];
     }
 
     public function sendData($data): ResponseInterface
@@ -25,7 +23,6 @@ class DetailsRequest extends Request
 
         $response = $this->getRequest("/ecomm/v2/payments/{$orderId}/details", [
             'Authorization' => $this->getAccessToken(),
-            'X-Request-Id' => uniqid('', true),
         ]);
 
         return $this->response = new Response($this, $response);

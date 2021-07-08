@@ -103,6 +103,29 @@ abstract class Request extends AbstractRequest
     }
 
     /**
+     * Build an array with all the http headers
+     *
+     * @param $headers
+     * @return array $headers
+     */
+    public function getHeaders($headers = [])
+    {
+        $externalHeaders = is_array($this->getParameter('headers'))
+            ? $this->getParameter('headers')
+            : [];
+
+        return array_merge([
+            'Accept' => 'application/json',
+            'Content-Type' => 'application/json',
+            'Vipps-System-Plugin-Version' => '1.0',
+            'Vipps-System-Plugin-Name' => 'pindena/omnipay-vipps',
+            'Ocp-Apim-Subscription-Key' => $this->getOcpSubscription(),
+            'Merchant-Serial-Number' => $this->getMerchantSerialNumber(),
+            'X-Request-Id' => uniqid('', true),
+        ], $externalHeaders, $headers);
+    }
+
+    /**
      * Convenience method to make a POST request
      * Body will be json_encoded
      *
@@ -161,13 +184,7 @@ abstract class Request extends AbstractRequest
      */
     public function makeVippsRequest($method, $uri, $headers, $body)
     {
-        $headers = array_merge([
-            'Content-Type' => 'application/json',
-            'Vipps-System-Plugin-Version' => '1.0',
-            'Vipps-System-Plugin-Name' => 'pindena/omnipay-vipps',
-            'Ocp-Apim-Subscription-Key' => $this->getOcpSubscription(),
-            'Merchant-Serial-Number' => $this->getMerchantSerialNumber(),
-        ], $headers);
+        $headers = $this->getHeaders($headers);
 
         $uri = $this->getBaseUrl($uri);
 
@@ -176,7 +193,7 @@ abstract class Request extends AbstractRequest
         $body = $response->getBody()->getContents();
 
         return empty($body)
-            ?  []
+            ? []
             : json_decode($body, true);
     }
 
@@ -190,10 +207,8 @@ abstract class Request extends AbstractRequest
     {
         if (empty($this->getToken())) {
             $response = $this->postRequest("/accesstoken/get", [
-                'Accept' => 'application/json',
                 'client_id' => $this->getClientId(),
                 'client_secret' => $this->getClientSecret(),
-                'Ocp-Apim-Subscription-Key' => $this->getOcpSubscription(),
             ]);
 
             $accessToken = isset($response['access_token'])

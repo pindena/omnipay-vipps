@@ -9,15 +9,17 @@ class CancelRequest extends Request
 {
     public function getData()
     {
-        $data = [];
-
-        return $data;
+        return [];
     }
 
     public function sendData($data): ResponseInterface
     {
         $orderId = $this->getTransactionReference();
 
-        return $this->response = new Response($this, $this->putRequest("/ecomm/v2/payments/{$orderId}/cancel"));
+        $response = $this->putRequest("/ecomm/v2/payments/{$orderId}/cancel", [
+            'Authorization' => $this->getAccessToken(),
+        ]);
+
+        return $this->response = new Response($this, $response);
     }
 }

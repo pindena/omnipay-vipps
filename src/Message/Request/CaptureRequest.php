@@ -33,7 +33,6 @@ class CaptureRequest extends Request
 
         $response = $this->postRequest("/ecomm/v2/payments/{$orderId}/capture", [
             'Authorization' => $this->getAccessToken(),
-            'X-Request-Id' => uniqid('', true),
         ], $data);
 
         return $this->response = new Response($this, $response);

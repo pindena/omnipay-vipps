@@ -28,7 +28,6 @@ class RefundRequest extends Request
 
         $response = $this->postRequest("/ecomm/v2/payments/{$orderId}/refund", [
             'Authorization' => $this->getAccessToken(),
-            'X-Request-Id' => uniqid('', true),
         ], $data);
 
         return $this->response = new Response($this, $response);
