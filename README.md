@@ -34,7 +34,7 @@ $gateway->initialize([
     'clientId'             => '',
     'clientSecret'         => '',
     'ocpSubscription'      => '',
-    'merchantSerialNumber' => ''
+    'merchantSerialNumber' => '',
 ]);
 
 $response = $gateway->authorize([
@@ -65,6 +65,23 @@ $response = $gateway->capture([
 
 ```php
 $response = $gateway->completeAuthorize(['transactionReference' => $transactionReference])->send();
+```
+
+### Troubleshooting headers
+
+Vipps requires partners and platforms to send special headers on all requests. This can be achieved by adding headers in the initialize options or on each request.
+
+```php
+$gateway->initialize([
+    'clientId'             => '',
+    'clientSecret'         => '',
+    'ocpSubscription'      => '',
+    'merchantSerialNumber' => '',
+    'headers'              => [
+        'Vipps-System-Name' => 'System name',
+        'Vipps-System-Version' => 'v1.0',
+    ],
+]);
 ```
 
 ## Quirks

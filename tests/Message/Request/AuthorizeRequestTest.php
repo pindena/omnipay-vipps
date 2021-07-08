@@ -1,6 +1,6 @@
 <?php
 
-namespace Pindena\Omnipay\Vipps\Tests\Message;
+namespace Pindena\Omnipay\Vipps\Tests\Message\Request;
 
 use Pindena\Omnipay\Vipps\Tests\TestCase;
 use Pindena\Omnipay\Vipps\Message\Request\AuthorizeRequest;
@@ -16,7 +16,7 @@ class AuthorizeRequestTest extends TestCase
             'amount' => '10.00',
             'currency' => 'NOK',
             'phone' => $this->getValidPhone(),
-            'description' => 'Dette er en transaksjon.',
+            'description' => 'This is a transaction.',
         ]);
     }
 
@@ -25,6 +25,7 @@ class AuthorizeRequestTest extends TestCase
         $data = $this->request->getData();
 
         $this->assertSame(1000, $data['transaction']['amount']);
-        $this->assertSame('Dette er en transaksjon.', $data['transaction']['transactionText']);
+        $this->assertSame('+4799999999', $data['customerInfo']['mobileNumber']);
+        $this->assertSame('This is a transaction.', $data['transaction']['transactionText']);
     }
 }
