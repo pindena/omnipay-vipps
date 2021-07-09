@@ -31,13 +31,9 @@ abstract class Request extends AbstractRequest
         ];
     }
 
-    public function getBaseUrl($path = null)
+    public function getBaseUrl($path = '')
     {
         $endpoint = $this->getTestMode() ? $this->testBaseUrl : $this->liveBaseUrl;
-
-        if (empty($path)) {
-            return $endpoint;
-        }
 
         return $endpoint . $path;
     }
@@ -92,14 +88,9 @@ abstract class Request extends AbstractRequest
         return $this->getParameter('phone');
     }
 
-    public function setTransactionText($value)
+    public function setHeaders($value)
     {
-        return $this->setParameter('transactionText', $value);
-    }
-
-    public function getTransactionText()
-    {
-        return $this->getParameter('transactionText');
+        return $this->setParameter('headers', $value);
     }
 
     /**
@@ -192,9 +183,7 @@ abstract class Request extends AbstractRequest
 
         $body = $response->getBody()->getContents();
 
-        return empty($body)
-            ? []
-            : json_decode($body, true);
+        return empty($body) ? [] : json_decode($body, true);
     }
 
     /**
@@ -211,9 +200,7 @@ abstract class Request extends AbstractRequest
                 'client_secret' => $this->getClientSecret(),
             ]);
 
-            $accessToken = isset($response['access_token'])
-                ? $response['access_token']
-                : null;
+            $accessToken = isset($response['access_token']) ? $response['access_token'] : null;
 
             $this->setToken($accessToken);
         }

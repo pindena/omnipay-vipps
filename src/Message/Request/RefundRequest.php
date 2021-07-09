@@ -3,7 +3,7 @@
 namespace Pindena\Omnipay\Vipps\Message\Request;
 
 use Omnipay\Common\Message\ResponseInterface;
-use Pindena\Omnipay\Vipps\Message\Response\Response;
+use Pindena\Omnipay\Vipps\Message\Response\RefundResponse;
 
 class RefundRequest extends Request
 {
@@ -30,6 +30,6 @@ class RefundRequest extends Request
             'Authorization' => $this->getAccessToken(),
         ], $data);
 
-        return $this->response = new Response($this, $response);
+        return $this->response = new RefundResponse($this, $response);
     }
 }

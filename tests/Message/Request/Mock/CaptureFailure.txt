@@ -1,0 +1,16 @@
+HTTP/1.1 404 Not Found
+Date: Fri, 09 Jul 2021 07:40:57 GMT
+Content-Type: application/json;charset=UTF-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+X-Application-Context: dwo-payment:mt1:8443
+Request-Context: appId=cid-v1:a93a792c-9572-4c72-8702-1275fd168921
+
+[
+    {
+        "errorGroup":"Merchant",
+        "errorCode":"35",
+        "errorMessage":"Requested Order not found",
+        "contextId":"a7acce06-1fe9-48b4-8a60-82059cf907a2"
+    }
+]

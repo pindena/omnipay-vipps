@@ -1,0 +1,15 @@
+HTTP/1.1 400 Bad Request
+Date: Fri, 09 Jul 2021 06:57:33 GMT
+Content-Type: application/json;charset=UTF-8
+Content-Length: 132
+Connection: keep-alive
+X-Application-Context: dwo-payment:mt1:8443
+Request-Context: appId=cid-v1:a93a792c-9572-4c72-8702-1275fd168921
+
+[
+    {
+        "errorCode":"34",
+        "errorMessage":"orderId is already used, and must be unique",
+        "contextId":"6af2b902-b04e-4dc7-b281-b54397d8131c"
+    }
+]

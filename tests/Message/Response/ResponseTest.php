@@ -16,6 +16,7 @@ class ResponseTest extends TestCase
 
         $this->assertTrue($response->isSuccessful());
         $this->assertFalse($response->isRedirect());
+        $this->assertSame('abc123', $response->getTransactionId());
         $this->assertSame('abc123', $response->getTransactionReference());
     }
 

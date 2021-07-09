@@ -1,0 +1,16 @@
+HTTP/1.1 402 Payment Required
+Date: Fri, 09 Jul 2021 07:51:01 GMT
+Content-Type: application/json;charset=UTF-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+X-Application-Context: dwo-payment:mt1:8443
+Request-Context: appId=cid-v1:a93a792c-9572-4c72-8702-1275fd168921
+
+[
+    {
+        "errorGroup":"Payment",
+        "errorCode":"51",
+        "errorMessage":"Can't cancel already captured order",
+        "contextId":"a48b27cc-cd75-45b3-aa54-79b89e7449a8"
+    }
+]

@@ -1,0 +1,12 @@
+HTTP/1.1 200 OK
+Date: Fri, 09 Jul 2021 05:57:17 GMT
+Content-Type: application/json;charset=UTF-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+X-Application-Context: dwo-payment:mt1:8443
+Request-Context: appId=cid-v1:a93a792c-9572-4c72-8702-1275fd168921
+
+{
+    "orderId":"2161081625810237909",
+    "url":"https://apitest.vipps.no/dwo-api-application/v1/deeplink/vippsgateway?v=2&token=eyJ0eXAiOiJKV1QiLCJhbGciOiJS"
+}

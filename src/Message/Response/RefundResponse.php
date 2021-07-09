@@ -2,10 +2,10 @@
 
 namespace Pindena\Omnipay\Vipps\Message\Response;
 
-class AuthorizeResponse extends Response
+class RefundResponse extends Response
 {
     public function isSuccessful()
     {
-        return isset($this->data['orderId'], $this->data['url']);
+        return isset($this->data['transaction']['status']);
     }
 }

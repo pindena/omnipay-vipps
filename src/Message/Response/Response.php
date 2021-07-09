@@ -16,28 +16,14 @@ use Omnipay\Common\Message\RedirectResponseInterface;
  */
 class Response extends AbstractResponse implements RedirectResponseInterface
 {
-    protected $statusCode;
-
-    public function __construct(RequestInterface $request, $data, $statusCode = 200)
-    {
-        parent::__construct($request, $data);
-
-        $this->statusCode = $statusCode;
-    }
-
     public function isSuccessful()
     {
-        if (isset($this->data['errorCode'])) {
-            return false;
-        }
-
-        return isset($this->data['success'])
-            || (isset($this->data['transactionInfo']['status']) && $this->getStatusCode() < 400);
+        return isset($this->data['transactionInfo']['status']);
     }
 
     public function isCancelled()
     {
-        $isError = isset($this->data['errorCode']);
+        $isError = isset($this->data[0]['errorCode']);
         $status = isset($this->data['transactionInfo']['status']) ? $this->data['transactionInfo']['status'] : null;
 
         if (! $status) {
@@ -57,15 +43,10 @@ class Response extends AbstractResponse implements RedirectResponseInterface
         return isset($this->data['orderId']) ? $this->data['orderId'] : null;
     }
 
-    public function getCardReference()
-    {
-        return isset($this->data['orderId']) ? $this->data['orderId'] : null;
-    }
-
     public function getMessage()
     {
-        if (isset($this->data['errorMessage'])) {
-            return $this->data['errorMessage'];
+        if (isset($this->data[0]['errorMessage'])) {
+            return $this->data[0]['errorMessage'];
         }
 
         return isset($this->data['message']) ? $this->data['message'] : null;
@@ -91,10 +72,5 @@ class Response extends AbstractResponse implements RedirectResponseInterface
     public function getRedirectData()
     {
         return null;
-    }
-
-    public function getStatusCode()
-    {
-        return $this->statusCode;
     }
 }

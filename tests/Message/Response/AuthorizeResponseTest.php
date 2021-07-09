@@ -15,6 +15,11 @@ class AuthorizeResponseTest extends TestCase
         );
 
         $this->assertTrue($response->isSuccessful());
+        $this->assertTrue($response->isRedirect());
         $this->assertSame('abc123', $response->getTransactionReference());
+
+        $this->assertSame('GET', $response->getRedirectMethod());
+        $this->assertSame('https://api.vipps.no/dwo-api-application/v1/deeplink/vippsgateway?v=2&token=eyJraWQiOiJqd3RrZXkiLC <snip>', $response->getRedirectUrl());
+        $this->assertSame(null, $response->getRedirectData());
     }
 }

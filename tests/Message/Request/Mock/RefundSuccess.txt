@@ -1,0 +1,24 @@
+HTTP/1.1 200 OK
+Date: Fri, 09 Jul 2021 07:52:42 GMT
+Content-Type: application/json;charset=UTF-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+X-Application-Context: dwo-payment:mt1:8443
+Request-Context: appId=cid-v1:a93a792c-9572-4c72-8702-1275fd168921
+
+{
+    "orderId":"2161081625816819478",
+    "transaction":{
+        "amount":500,
+        "transactionText":"Transaction refunded through Postman",
+        "status":"Refund",
+        "transactionId":"2482030015",
+        "timeStamp":"2021-07-09T07:52:42.164Z"
+    },
+    "transactionSummary":{
+        "capturedAmount":500,
+        "remainingAmountToCapture":0,
+        "refundedAmount":500,
+        "remainingAmountToRefund":0
+    }
+}

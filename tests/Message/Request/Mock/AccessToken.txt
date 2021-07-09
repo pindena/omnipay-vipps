@@ -1,0 +1,20 @@
+HTTP/1.1 200 OK
+Date: Fri, 09 Jul 2021 05:52:26 GMT
+Content-Type: application/json; charset=utf-8
+Connection: keep-alive
+Cache-Control: no-store, no-cache
+Pragma: no-cache
+Expires: -1
+Strict-Transport-Security: max-age=31536000; includeSubDomains
+X-Content-Type-Options: nosniff
+Request-Context: appId=cid-v1:a93a792c-9572-4c72-8702-1275fd168921
+
+{
+    "token_type":"Bearer",
+    "expires_in":"3599",
+    "ext_expires_in":"3599",
+    "expires_on":"1625813545",
+    "not_before":"1625809645",
+    "resource":"00000002-0000-0000-c000-000000000000",
+    "access_token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJS"
+}

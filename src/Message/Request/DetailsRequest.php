@@ -3,7 +3,7 @@
 namespace Pindena\Omnipay\Vipps\Message\Request;
 
 use Omnipay\Common\Message\ResponseInterface;
-use Pindena\Omnipay\Vipps\Message\Response\Response;
+use Pindena\Omnipay\Vipps\Message\Response\DetailsResponse;
 
 /**
  * Details request
@@ -25,6 +25,6 @@ class DetailsRequest extends Request
             'Authorization' => $this->getAccessToken(),
         ]);
 
-        return $this->response = new Response($this, $response);
+        return $this->response = new DetailsResponse($this, $response);
     }
 }
