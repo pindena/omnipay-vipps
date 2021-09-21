@@ -14,7 +14,7 @@ class AuthorizeResponseTest extends TestCase
             $this->getMockResponse('AuthorizeSuccess.txt', ['orderId' => 'abc123'])
         );
 
-        $this->assertTrue($response->isSuccessful());
+        $this->assertFalse($response->isSuccessful());
         $this->assertTrue($response->isRedirect());
         $this->assertSame('abc123', $response->getTransactionReference());
 

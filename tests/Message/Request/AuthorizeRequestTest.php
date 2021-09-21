@@ -39,7 +39,7 @@ class AuthorizeRequestTest extends TestCase
         $response = $this->request->send();
 
         $this->assertInstanceOf(AuthorizeResponse::class, $response);
-        $this->assertTrue($response->isSuccessful());
+        $this->assertFalse($response->isSuccessful());
         $this->assertTrue($response->isRedirect());
         $this->assertSame(null, $response->getMessage());
     }

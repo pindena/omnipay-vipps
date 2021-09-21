@@ -5,6 +5,7 @@ namespace Pindena\Omnipay\Vipps\Tests\Message\Request;
 use Pindena\Omnipay\Vipps\Tests\TestCase;
 use Pindena\Omnipay\Vipps\Message\Response\Response;
 use Pindena\Omnipay\Vipps\Message\Request\CaptureRequest;
+use Pindena\Omnipay\Vipps\Message\Response\ErrorResponse;
 
 class CaptureRequestTest extends TestCase
 {
@@ -29,7 +30,7 @@ class CaptureRequestTest extends TestCase
 
     public function testSendSuccess()
     {
-        $this->setMockHttpResponse(['AccessToken.txt', 'CaptureSuccess.txt']);
+        $this->setMockHttpResponse(['AccessToken.txt', 'DetailsReserved.txt', 'CaptureSuccess.txt']);
         $response = $this->request->send();
 
         $this->assertInstanceOf(Response::class, $response);
@@ -37,9 +38,20 @@ class CaptureRequestTest extends TestCase
         $this->assertFalse($response->isRedirect());
     }
 
+    public function testUserCanceled()
+    {
+        $this->setMockHttpResponse(['AccessToken.txt', 'DetailsCanceled.txt', 'CaptureFailure.txt']);
+        $response = $this->request->send();
+
+        $this->assertInstanceOf(ErrorResponse::class, $response);
+        $this->assertFalse($response->isSuccessful());
+        $this->assertFalse($response->isRedirect());
+        $this->assertSame('Not reserved, last operation: CANCEL', $response->getMessage());
+    }
+
     public function testSendError()
     {
-        $this->setMockHttpResponse(['AccessToken.txt', 'CaptureFailure.txt']);
+        $this->setMockHttpResponse(['AccessToken.txt', 'DetailsReserved.txt', 'CaptureFailure.txt']);
         $response = $this->request->send();
 
         $this->assertFalse($response->isSuccessful());

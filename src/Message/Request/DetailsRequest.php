@@ -21,9 +21,7 @@ class DetailsRequest extends Request
     {
         $orderId = $this->getTransactionReference();
 
-        $response = $this->getRequest("/ecomm/v2/payments/{$orderId}/details", [
-            'Authorization' => $this->getAccessToken(),
-        ]);
+        $response = $this->getDetails($orderId);
 
         return $this->response = new DetailsResponse($this, $response);
     }

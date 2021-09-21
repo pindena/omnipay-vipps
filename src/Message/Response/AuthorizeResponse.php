@@ -6,6 +6,11 @@ class AuthorizeResponse extends Response
 {
     public function isSuccessful()
     {
-        return isset($this->data['orderId'], $this->data['url']);
+        if ($this->isRedirect()) {
+            return false;
+        }
+
+        return isset($this->data['transactionInfo']['status']) &&
+            in_array($this->data['transactionInfo']['status'], ['RESERVED', 'SALE']);
     }
 }

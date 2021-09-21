@@ -4,6 +4,7 @@ namespace Pindena\Omnipay\Vipps\Message\Request;
 
 use Omnipay\Common\Message\ResponseInterface;
 use Pindena\Omnipay\Vipps\Message\Response\Response;
+use Pindena\Omnipay\Vipps\Message\Response\ErrorResponse;
 
 /**
  * Capture request
@@ -30,6 +31,12 @@ class CaptureRequest extends Request
     public function sendData($data): ResponseInterface
     {
         $orderId = $this->getTransactionReference();
+
+        $details = $this->getDetails($orderId);
+
+        if (! in_array($details['transactionLogHistory'][0]['operation'], ['RESERVE', 'RESERVED'])) {
+            return $this->response = new ErrorResponse($this, $details);
+        }
 
         $response = $this->postRequest("/ecomm/v2/payments/{$orderId}/capture", [
             'Authorization' => $this->getAccessToken(),

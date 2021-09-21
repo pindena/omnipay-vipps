@@ -18,7 +18,8 @@ class Response extends AbstractResponse implements RedirectResponseInterface
 {
     public function isSuccessful()
     {
-        return isset($this->data['transactionInfo']['status']);
+        return isset($this->data['transactionInfo']['status']) &&
+            in_array($this->data['transactionInfo']['status'], ['RESERVED', 'SALE', 'Captured', 'CAPTURED']);
     }
 
     public function isCancelled()
@@ -26,11 +27,7 @@ class Response extends AbstractResponse implements RedirectResponseInterface
         $isError = isset($this->data[0]['errorCode']);
         $status = isset($this->data['transactionInfo']['status']) ? $this->data['transactionInfo']['status'] : null;
 
-        if (! $status) {
-            return false;
-        }
-
-        return $isError || $status == 'Cancelled';
+        return $isError || in_array($status, ['Cancelled', 'CANCELLED', 'REJECTED']);
     }
 
     public function getTransactionReference()

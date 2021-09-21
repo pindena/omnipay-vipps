@@ -208,6 +208,19 @@ abstract class Request extends AbstractRequest
         return $this->getToken();
     }
 
+    /**
+     * Get details for transaction
+     *
+     * @param $orderId
+     * @return array
+     */
+    public function getDetails($orderId)
+    {
+        return $this->getRequest("/ecomm/v2/payments/{$orderId}/details", [
+            'Authorization' => $this->getAccessToken(),
+        ]);
+    }
+
     abstract public function getData();
 
     abstract public function sendData($data): ResponseInterface;
