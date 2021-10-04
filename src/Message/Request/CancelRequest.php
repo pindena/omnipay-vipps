@@ -9,7 +9,16 @@ class CancelRequest extends Request
 {
     public function getData()
     {
-        return [];
+        $data = [
+            'merchantInfo' => [
+                'merchantSerialNumber' => $this->getMerchantSerialNumber(),
+            ],
+            'transaction' => [
+                'transactionText' => $this->getDescription(),
+            ],
+        ];
+
+        return $data;
     }
 
     public function sendData($data): ResponseInterface
@@ -18,7 +27,7 @@ class CancelRequest extends Request
 
         $response = $this->putRequest("/ecomm/v2/payments/{$orderId}/cancel", [
             'Authorization' => $this->getAccessToken(),
-        ]);
+        ], $data);
 
         return $this->response = new Response($this, $response);
     }

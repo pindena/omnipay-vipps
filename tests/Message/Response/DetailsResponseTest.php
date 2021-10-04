@@ -17,4 +17,26 @@ class DetailsResponseTest extends TestCase
         $this->assertTrue($response->isSuccessful());
         $this->assertSame('2161081625816819478', $response->getTransactionReference());
     }
+
+    public function testDetailsReserved()
+    {
+        $response = new DetailsResponse(
+            $this->getMockRequest(),
+            $this->getMockResponse('DetailsReserved.txt')
+        );
+
+        $this->assertTrue($response->isSuccessful());
+        $this->assertTrue($response->isReserved());
+    }
+
+    public function testDetailsCancelled()
+    {
+        $response = new DetailsResponse(
+            $this->getMockRequest(),
+            $this->getMockResponse('DetailsCancelled.txt')
+        );
+
+        $this->assertFalse($response->isSuccessful());
+        $this->assertTrue($response->isCancelled());
+    }
 }

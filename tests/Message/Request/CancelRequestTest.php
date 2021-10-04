@@ -13,14 +13,24 @@ class CancelRequestTest extends TestCase
         parent::setUp();
 
         $this->request = new CancelRequest($this->getHttpClient(), $this->getHttpRequest());
-        $this->request->initialize([]);
+        $this->request->initialize([
+            'merchantSerialNumber' => '123456',
+            'description' => 'Cancellation',
+        ]);
     }
 
     public function testGetData()
     {
         $data = $this->request->getData();
 
-        $this->assertSame([], $data);
+        $this->assertSame($data, [
+            'merchantInfo' => [
+                'merchantSerialNumber' => '123456',
+            ],
+            'transaction' => [
+                'transactionText' => 'Cancellation',
+            ],
+        ]);
     }
 
     public function testSendSuccess()

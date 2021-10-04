@@ -38,14 +38,6 @@ class GatewayTest extends GatewayTestCase
         $this->assertArrayHasKey('amount', $request->getData()['transaction']);
     }
 
-    public function testPurchase()
-    {
-        $request = $this->gateway->purchase(['amount' => '10.00']);
-
-        $this->assertInstanceOf(AuthorizeRequest::class, $request);
-        $this->assertSame('10.00', $request->getAmount());
-    }
-
     public function testCompleteAuthorize()
     {
         $request = $this->gateway->completeAuthorize();
@@ -61,12 +53,27 @@ class GatewayTest extends GatewayTestCase
         $this->assertSame('10.00', $request->getAmount());
     }
 
+    public function testPurchase()
+    {
+        $request = $this->gateway->purchase(['amount' => '10.00']);
+
+        $this->assertInstanceOf(AuthorizeRequest::class, $request);
+        $this->assertSame('10.00', $request->getAmount());
+    }
+
     public function testCompletePurchase()
     {
         $request = $this->gateway->completePurchase(['amount' => '10.00']);
 
         $this->assertInstanceOf(CaptureRequest::class, $request);
         $this->assertSame('10.00', $request->getAmount());
+    }
+
+    public function testFetchTransaction()
+    {
+        $request = $this->gateway->fetchTransaction();
+
+        $this->assertInstanceOf(DetailsRequest::class, $request);
     }
 
     public function testRefund()

@@ -1,0 +1,29 @@
+{
+    "orderId":"2161081625816819478",
+    "transactionSummary":{
+        "capturedAmount":0,
+        "remainingAmountToCapture":500,
+        "refundedAmount":0,
+        "remainingAmountToRefund":0,
+        "bankIdentificationNumber":534489
+    },
+    "transactionLogHistory":[
+        {
+            "amount":500,
+            "transactionText":"Transaction initiated through Postman",
+            "transactionId":"5002701468",
+            "timeStamp":"2021-07-09T07:47:34.481Z",
+            "operation":"RESERVE",
+            "requestId":"",
+            "operationSuccess":true
+        },
+        {
+            "amount":500,
+            "transactionText":"Transaction initiated through Postman",
+            "transactionId":"5002701468",
+            "timeStamp":"2021-07-09T07:47:10.088Z",
+            "operation":"INITIATE",
+            "operationSuccess":true
+        }
+    ]
+}

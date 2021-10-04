@@ -75,14 +75,9 @@ class Gateway extends AbstractGateway
         return $this->createRequest(AuthorizeRequest::class, $parameters);
     }
 
-    public function purchase(array $parameters = [])
-    {
-        return $this->createRequest(AuthorizeRequest::class, $parameters);
-    }
-
     public function completeAuthorize(array $parameters = [])
     {
-        return $this->createRequest(DetailsRequest::class, $parameters);
+        return $this->fetchTransaction($parameters);
     }
 
     public function capture(array $parameters = [])
@@ -90,9 +85,19 @@ class Gateway extends AbstractGateway
         return $this->createRequest(CaptureRequest::class, $parameters);
     }
 
+    public function purchase(array $parameters = [])
+    {
+        return $this->authorize($parameters);
+    }
+
     public function completePurchase(array $parameters = [])
     {
-        return $this->createRequest(CaptureRequest::class, $parameters);
+        return $this->capture($parameters);
+    }
+
+    public function fetchTransaction(array $parameters = [])
+    {
+        return $this->createRequest(DetailsRequest::class, $parameters);
     }
 
     public function refund(array $parameters = [])

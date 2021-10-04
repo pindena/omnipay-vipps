@@ -160,6 +160,10 @@ abstract class Request extends AbstractRequest
      */
     public function putRequest($uri, $headers = [], $body = null)
     {
+        if (is_array($body)) {
+            $body = json_encode($body);
+        }
+
         return $this->makeVippsRequest('PUT', $uri, $headers, $body);
     }
 
