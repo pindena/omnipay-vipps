@@ -8,6 +8,8 @@ use Pindena\Omnipay\Vipps\Message\Request\RefundRequest;
 
 class RefundRequestTest extends TestCase
 {
+    protected $request;
+
     public function setUp(): void
     {
         parent::setUp();

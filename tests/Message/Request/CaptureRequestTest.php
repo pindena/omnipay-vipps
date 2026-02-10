@@ -9,6 +9,8 @@ use Pindena\Omnipay\Vipps\Message\Response\ErrorResponse;
 
 class CaptureRequestTest extends TestCase
 {
+    protected $request;
+
     public function setUp(): void
     {
         parent::setUp();

@@ -8,6 +8,8 @@ use Pindena\Omnipay\Vipps\Message\Request\CancelRequest;
 
 class CancelRequestTest extends TestCase
 {
+    protected $request;
+
     public function setUp(): void
     {
         parent::setUp();

@@ -8,6 +8,8 @@ use Pindena\Omnipay\Vipps\Message\Response\AuthorizeResponse;
 
 class AuthorizeRequestTest extends TestCase
 {
+    protected $request;
+
     public function setUp(): void
     {
         parent::setUp();

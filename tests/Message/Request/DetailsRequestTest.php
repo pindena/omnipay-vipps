@@ -8,6 +8,8 @@ use Pindena\Omnipay\Vipps\Message\Request\DetailsRequest;
 
 class DetailsRequestTest extends TestCase
 {
+    protected $request;
+
     public function setUp(): void
     {
         parent::setUp();
