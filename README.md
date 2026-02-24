@@ -21,7 +21,7 @@ The following gateways are provided by this package:
 * Vipps (Vipps Ecomm Checkout)
 
 For general usage instructions, please see the main [Omnipay](https://github.com/thephpleague/omnipay)
-repository and the [Vipps documentation](https://vipps.no/developers-documentation/). 
+repository and the [Vipps documentation](https://developer.vippsmobilepay.com/docs/APIs/ecom-api/).
 
 ### Initialize gateway, authorize and redirect to Vipps
 

@@ -25,6 +25,10 @@ class Response extends AbstractResponse implements RedirectResponseInterface
     public function isCancelled()
     {
         if (isset($this->data[0]['errorCode'])) {
+            if ($this->data[0]['errorMessage'] == 'Not reserved, last operation: CANCEL') {
+                return true;
+            }
+
             return false;
         }
 
