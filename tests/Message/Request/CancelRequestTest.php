@@ -52,7 +52,7 @@ class CancelRequestTest extends TestCase
         $response = $this->request->send();
 
         $this->assertFalse($response->isSuccessful());
-        $this->assertTrue($response->isCancelled());
+        $this->assertFalse($response->isCancelled());
         $this->assertFalse($response->isRedirect());
         $this->assertSame('Can\'t cancel already captured order', $response->getMessage());
     }

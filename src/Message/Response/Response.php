@@ -24,10 +24,12 @@ class Response extends AbstractResponse implements RedirectResponseInterface
 
     public function isCancelled()
     {
-        $isError = isset($this->data[0]['errorCode']);
-        $status = isset($this->data['transactionInfo']['status']) ? $this->data['transactionInfo']['status'] : null;
+        if (isset($this->data[0]['errorCode'])) {
+            return false;
+        }
 
-        return $isError || in_array($status, ['Cancelled', 'CANCELLED', 'REJECTED']);
+        return isset($this->data['transactionInfo']['status']) &&
+            in_array($this->data['transactionInfo']['status'], ['Cancelled', 'CANCELLED', 'REJECTED']);
     }
 
     public function getTransactionReference()
